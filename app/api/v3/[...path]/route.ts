@@ -16,7 +16,12 @@ export async function POST(
 
   try {
     // Get request body
-    const body = await request.json();
+    let body = await request.json();
+
+    // Convert single object to array for DataForSEO compatibility
+    if (!Array.isArray(body)) {
+      body = [body];
+    }
 
     // Check cache first
     const cacheKey = cacheService.generateCacheKey(fullPath, body);
