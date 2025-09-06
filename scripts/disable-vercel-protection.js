@@ -19,29 +19,29 @@ async function disableProtection() {
   try {
     console.log('🛡️ FASCINANTE DIGITAL - DISABLING VERCEL PROTECTION');
     console.log('==================================================');
-    
+
     // IDs obtenidos desde vercel project inspect
     const projectId = 'prj_7d2x7iUNYKDFlGo810PFe2AWD6Ja';
     const teamId = 'alexanderoviedo'; // Usuario individual, no team
-    
+
     console.log(`📋 Project ID: ${projectId}`);
     console.log(`👥 Team ID: ${teamId}`);
-    
+
     console.log(`📋 Project ID: ${projectId}`);
     console.log(`👥 Team ID: ${teamId}`);
-    
+
     // 1. Obtener configuración actual del proyecto
     console.log('\n🔍 Obteniendo configuración actual...');
     const project = await vercel.projects.getProject({
       idOrName: projectId,
       teamId: teamId,
     });
-    
+
     console.log(`✅ Proyecto encontrado: ${project.name}`);
-    
+
     // 2. Deshabilitar protección de autenticación
     console.log('\n🚫 Deshabilitando protección de autenticación...');
-    
+
     // Opción 1: Deshabilitar SSO Protection
     try {
       await vercel.projects.updateProject({
@@ -55,7 +55,7 @@ async function disableProtection() {
     } catch (error) {
       console.log('⚠️ SSO Protection ya estaba deshabilitado o no aplicable');
     }
-    
+
     // Opción 2: Deshabilitar Password Protection
     try {
       await vercel.projects.updateProject({
@@ -67,9 +67,11 @@ async function disableProtection() {
       });
       console.log('✅ Password Protection deshabilitado');
     } catch (error) {
-      console.log('⚠️ Password Protection ya estaba deshabilitado o no aplicable');
+      console.log(
+        '⚠️ Password Protection ya estaba deshabilitado o no aplicable'
+      );
     }
-    
+
     // Opción 3: Crear bypass para automation
     try {
       await vercel.projects.updateProjectProtectionBypass({
@@ -84,12 +86,11 @@ async function disableProtection() {
     } catch (error) {
       console.log('⚠️ Automation Bypass ya existe o no aplicable');
     }
-    
+
     console.log('\n🎉 PROTECCIÓN DESHABILITADA EXITOSAMENTE');
     console.log('==========================================');
     console.log('✅ El proyecto ahora debería ser accesible públicamente');
     console.log('🌐 URL: https://auditoria.fascinantedigital.com');
-    
   } catch (error) {
     console.error('❌ Error deshabilitando protección:', error.message);
     process.exit(1);
