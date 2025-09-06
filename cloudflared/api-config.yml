@@ -1,0 +1,53 @@
+# 🚇 CLOUDFLARED ELITE CONFIG - API
+# Configuración para API Gateway
+
+tunnel: api-tunnel
+credentials-file: ~/.cloudflared/d8bf360c-31f5-421b-a25f-a6bd00dad28c.json
+
+# 🌐 Ingress Rules para API
+ingress:
+  # API Principal
+  - hostname: api.fascinantedigital.com
+    service: http://localhost:3001
+    originRequest:
+      httpHostHeader: api.fascinantedigital.com
+      noTLSVerify: false
+      connectTimeout: 30s
+      tlsTimeout: 10s
+
+  # API v1
+  - hostname: api-v1.fascinantedigital.com
+    service: http://localhost:3001
+    originRequest:
+      httpHostHeader: api-v1.fascinantedigital.com
+      noTLSVerify: false
+
+  # API v2
+  - hostname: api-v2.fascinantedigital.com
+    service: http://localhost:3002
+    originRequest:
+      httpHostHeader: api-v2.fascinantedigital.com
+      noTLSVerify: false
+
+  # Catch-all
+  - service: http_status:404
+
+# 🔧 Configuración optimizada para API
+originRequest:
+  connectTimeout: 30s
+  tlsTimeout: 10s
+  tcpKeepAlive: 30s
+  keepAliveConnections: 20
+  keepAliveTimeout: 90s
+  noTLSVerify: false
+  disableChunkedEncoding: false
+  bufferSize: 65536
+
+# 📊 Métricas
+metrics: 127.0.0.1:8081
+loglevel: info
+
+# 🔒 Protocolo
+protocol: quic
+retries: 5
+grace-period: 30s

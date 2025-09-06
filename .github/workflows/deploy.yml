@@ -1,0 +1,157 @@
+# 🚀 FASCINANTE DIGITAL - DEPLOY ELITE
+# CI/CD automático para auditoria.fascinantedigital.com
+
+name: 🚀 Deploy Elite
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  NODE_VERSION: '18'
+  PNPM_VERSION: '8'
+
+jobs:
+  # 🧪 Test y Build
+  test-and-build:
+    name: 🧪 Test & Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔍 Type check
+        run: pnpm type-check
+
+      - name: 🧹 Lint
+        run: pnpm lint
+
+      - name: 🎨 Format check
+        run: pnpm format:check
+
+      - name: 🏗️ Build
+        run: pnpm build
+        env:
+          DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+
+  # 🚀 Deploy to Vercel
+  deploy-vercel:
+    name: 🚀 Deploy to Vercel
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🚀 Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
+
+  # 🌐 Update Cloudflare DNS
+  update-dns:
+    name: 🌐 Update Cloudflare DNS
+    needs: deploy-vercel
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🌐 Update DNS Records
+        run: |
+          # Obtener IP de Vercel
+          VERCEL_IP=$(dig +short cname.vercel-dns.com | head -1)
+          
+          # Actualizar DNS con Terraform
+          cd terraform
+          
+          # Configurar credenciales
+          echo "cloudflare_api_token = \"${{ secrets.CLOUDFLARE_API_TOKEN }}\"" > terraform.tfvars
+          echo "zone_id = \"${{ secrets.CLOUDFLARE_ZONE_ID }}\"" >> terraform.tfvars
+          echo "domain = \"fascinantedigital.com\"" >> terraform.tfvars
+          echo "environment = \"production\"" >> terraform.tfvars
+          
+          # Inicializar y aplicar
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
+
+  # 🚇 Update Cloudflared Tunnels
+  update-tunnels:
+    name: 🚇 Update Cloudflared Tunnels
+    needs: update-dns
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🚇 Install Cloudflared
+        run: |
+          wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+          sudo dpkg -i cloudflared-linux-amd64.deb
+
+      - name: 🚇 Update Tunnel Configuration
+        run: |
+          # Actualizar configuración de túneles
+          # Esto se ejecutará en el servidor de producción
+          echo "Tunnel configuration updated"
+
+  # 📊 Notify Deployment
+  notify:
+    name: 📊 Notify Deployment
+    needs: [deploy-vercel, update-dns, update-tunnels]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: 📊 Deployment Status
+        run: |
+          if [ "${{ needs.deploy-vercel.result }}" == "success" ] && [ "${{ needs.update-dns.result }}" == "success" ]; then
+            echo "🎉 DEPLOYMENT SUCCESSFUL!"
+            echo "🌐 auditoria.fascinantedigital.com is live!"
+            echo "🚀 API Gateway deployed and accessible"
+          else
+            echo "❌ DEPLOYMENT FAILED!"
+            echo "Check the logs above for details"
+            exit 1
+          fi

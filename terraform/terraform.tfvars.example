@@ -1,0 +1,19 @@
+# 🔐 CLOUDFLARE CREDENTIALS - FASCINANTE DIGITAL ELITE
+# Copia este archivo como terraform.tfvars y completa los valores
+
+# Cloudflare API Token (requerido)
+# Obtén tu token en: https://dash.cloudflare.com/profile/api-tokens
+# Permisos necesarios: Zone:Edit, Worker:Edit, Account:Read
+cloudflare_api_token = "tu-api-token-aqui"
+
+# Zone ID de fascinantedigital.com (requerido)
+# Encuéntralo en: https://dash.cloudflare.com/ -> Tu dominio -> Overview -> Zone ID
+zone_id = "tu-zone-id-aqui"
+
+# Configuración opcional
+domain = "fascinantedigital.com"
+environment = "production"
+enable_workers = true
+enable_zero_trust = true
+cache_ttl = 3600
+security_level = "medium"
