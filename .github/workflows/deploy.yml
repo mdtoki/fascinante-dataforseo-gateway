@@ -5,9 +5,9 @@ name: 🚀 Deploy Elite
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 env:
   NODE_VERSION: '20'
@@ -18,7 +18,7 @@ jobs:
   test-and-build:
     name: 🧪 Test & Build
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -51,6 +51,8 @@ jobs:
         env:
           DATAFORSEO_USERNAME: ${{ secrets.DATAFORSEO_USERNAME }}
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+          API_GATEWAY_SECRET: ${{ secrets.API_GATEWAY_SECRET }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
   # 🚀 Deploy to Vercel
   deploy-vercel:
@@ -58,7 +60,7 @@ jobs:
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-
+    
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -78,11 +80,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🚀 Deploy to Vercel
-        run: |
-          echo "🚀 Deploying to Vercel..."
-          # Por ahora, solo verificamos que el build funciona
-          # El deploy real se hará manualmente o con token correcto
-          echo "✅ Build successful - ready for deployment"
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
 
   # 🌐 Update Cloudflare DNS
   update-dns:
@@ -90,43 +94,26 @@ jobs:
     needs: deploy-vercel
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-
+    
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🌐 Update DNS Records
+      - name: 📦 Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.6.0'
+
+      - name: 🌐 Update Cloudflare DNS
         run: |
-          # Actualizar DNS con Terraform
           cd terraform
-
-          # Configurar credenciales
-          echo "cloudflare_api_token = \"${{ secrets.CLOUDFLARE_API_TOKEN }}\"" > terraform.tfvars
-          echo "zone_id = \"${{ secrets.CLOUDFLARE_ZONE_ID }}\"" >> terraform.tfvars
-          echo "domain = \"fascinantedigital.com\"" >> terraform.tfvars
-          echo "environment = \"production\"" >> terraform.tfvars
-
-          # Inicializar y aplicar
           terraform init
-          terraform plan
           terraform apply -auto-approve
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
-  # 📊 Notify Deployment
-  notify:
-    name: 📊 Notify Deployment
-    needs: [deploy-vercel, update-dns]
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-      - name: 📊 Deployment Status
+      - name: 🚇 Start Cloudflared Tunnels
         run: |
-          if [ "${{ needs.deploy-vercel.result }}" == "success" ] && [ "${{ needs.update-dns.result }}" == "success" ]; then
-            echo "🎉 DEPLOYMENT SUCCESSFUL!"
-            echo "🌐 auditoria.fascinantedigital.com is live!"
-            echo "🚀 API Gateway deployed and accessible"
-          else
-            echo "❌ DEPLOYMENT FAILED!"
-            echo "Check the logs above for details"
-            exit 1
-          fi
+          echo "🚇 Cloudflared tunnels would be managed externally in a production setup."
+          echo "For local testing, use ./scripts/start-tunnels.sh"
