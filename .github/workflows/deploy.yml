@@ -5,9 +5,9 @@ name: 🚀 Deploy Elite
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   NODE_VERSION: '20'
@@ -18,7 +18,7 @@ jobs:
   test-and-build:
     name: 🧪 Test & Build
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -58,7 +58,7 @@ jobs:
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
     needs: deploy-vercel
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -101,13 +101,13 @@ jobs:
         run: |
           # Actualizar DNS con Terraform
           cd terraform
-          
+
           # Configurar credenciales
           echo "cloudflare_api_token = \"${{ secrets.CLOUDFLARE_API_TOKEN }}\"" > terraform.tfvars
           echo "zone_id = \"${{ secrets.CLOUDFLARE_ZONE_ID }}\"" >> terraform.tfvars
           echo "domain = \"fascinantedigital.com\"" >> terraform.tfvars
           echo "environment = \"production\"" >> terraform.tfvars
-          
+
           # Inicializar y aplicar
           terraform init
           terraform plan
@@ -119,7 +119,7 @@ jobs:
     needs: [deploy-vercel, update-dns]
     runs-on: ubuntu-latest
     if: always()
-    
+
     steps:
       - name: 📊 Deployment Status
         run: |

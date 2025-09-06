@@ -5,7 +5,8 @@ export async function GET(request: NextRequest) {
     openapi: '3.1.0',
     info: {
       title: 'Fascinante Digital - DataForSEO API Gateway',
-      description: 'API Gateway PRO ELITE para DataForSEO con Next.js 15. Acceso escalable y seguro a herramientas de SEO y análisis de datos.',
+      description:
+        'API Gateway PRO ELITE para DataForSEO con Next.js 15. Acceso escalable y seguro a herramientas de SEO y análisis de datos.',
       version: '1.0.0',
       contact: {
         name: 'Fascinante Digital',
@@ -85,7 +86,8 @@ export async function GET(request: NextRequest) {
       '/v3/serp/{search_engine}/organic/live/advanced': {
         post: {
           summary: 'Get organic search results',
-          description: 'Obtiene resultados de búsqueda orgánica para una palabra clave en el motor de búsqueda especificado',
+          description:
+            'Obtiene resultados de búsqueda orgánica para una palabra clave en el motor de búsqueda especificado',
           parameters: [
             {
               name: 'search_engine',
@@ -170,7 +172,8 @@ export async function GET(request: NextRequest) {
       '/v3/ai_optimization/chat_gpt/llm_responses/live': {
         post: {
           summary: 'Generate AI content',
-          description: 'Genera contenido usando modelos de IA como ChatGPT, Claude, Gemini, etc.',
+          description:
+            'Genera contenido usando modelos de IA como ChatGPT, Claude, Gemini, etc.',
           requestBody: {
             required: true,
             content: {
@@ -233,7 +236,8 @@ export async function GET(request: NextRequest) {
       '/v3/keywords_data/google_ads/search_volume/live': {
         post: {
           summary: 'Get keyword search volume',
-          description: 'Obtiene datos de volumen de búsqueda para palabras clave desde Google Ads',
+          description:
+            'Obtiene datos de volumen de búsqueda para palabras clave desde Google Ads',
           requestBody: {
             required: true,
             content: {
@@ -272,7 +276,8 @@ export async function GET(request: NextRequest) {
       '/v3/dataforseo_labs/google/keyword_ideas/live': {
         post: {
           summary: 'Get keyword ideas',
-          description: 'Obtiene ideas de palabras clave relevantes para las categorías de productos o servicios especificadas',
+          description:
+            'Obtiene ideas de palabras clave relevantes para las categorías de productos o servicios especificadas',
           requestBody: {
             required: true,
             content: {
@@ -315,7 +320,8 @@ export async function GET(request: NextRequest) {
       '/v3/backlinks/summary/live': {
         post: {
           summary: 'Get backlinks summary',
-          description: 'Obtiene un resumen de datos de backlinks disponibles para un dominio, subdominio o página web',
+          description:
+            'Obtiene un resumen de datos de backlinks disponibles para un dominio, subdominio o página web',
           requestBody: {
             required: true,
             content: {

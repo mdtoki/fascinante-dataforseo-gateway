@@ -31,7 +31,7 @@ class SimpleLogger {
     if (!this.isEnabled(level)) return;
 
     const entry = this.formatMessage(level, message, meta);
-    
+
     if (level === 'error') {
       console.error(JSON.stringify(entry));
     } else if (level === 'warn') {

@@ -34,7 +34,11 @@ export class AuthService {
   /**
    * Verify JWT token
    */
-  verifyToken(token: string): { valid: boolean; payload?: JWTPayload; error?: string } {
+  verifyToken(token: string): {
+    valid: boolean;
+    payload?: JWTPayload;
+    error?: string;
+  } {
     try {
       const payload = jwt.verify(token, this.secret) as JWTPayload;
       return {
@@ -55,12 +59,12 @@ export class AuthService {
    */
   extractToken(authHeader: string | null): string | null {
     if (!authHeader) return null;
-    
+
     const parts = authHeader.split(' ');
     if (parts.length !== 2 || parts[0] !== 'Bearer') {
       return null;
     }
-    
+
     return parts[1];
   }
 
@@ -80,7 +84,10 @@ export class AuthService {
    * Check if user has required permission
    */
   hasPermission(payload: JWTPayload, permission: string): boolean {
-    return payload.permissions.includes(permission) || payload.permissions.includes('*');
+    return (
+      payload.permissions.includes(permission) ||
+      payload.permissions.includes('*')
+    );
   }
 }
 
@@ -89,7 +96,9 @@ export const authService = new AuthService();
 /**
  * Authenticate request using API key or JWT token
  */
-export async function authenticateRequest(request: Request): Promise<AuthResult> {
+export async function authenticateRequest(
+  request: Request
+): Promise<AuthResult> {
   const authHeader = request.headers.get('authorization');
   const apiKey = request.headers.get('x-api-key');
 

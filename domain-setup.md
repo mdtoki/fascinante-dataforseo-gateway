@@ -1,6 +1,7 @@
 # Configuración de Dominio Personalizado
 
 ## 🎯 Objetivo
+
 Configurar `auditoria.fascinantedigital.com` como dominio personalizado para el API Gateway de DataForSEO.
 
 ## 📋 Pasos para Vercel
@@ -24,6 +25,7 @@ vercel domains add auditoria.fascinantedigital.com
 ### 2. Configurar DNS en Cloudflare
 
 #### Opción A: CNAME (Recomendado)
+
 ```
 Tipo: CNAME
 Nombre: auditoria
@@ -33,6 +35,7 @@ TTL: Auto
 ```
 
 #### Opción B: A Record
+
 ```
 Tipo: A
 Nombre: auditoria
@@ -54,6 +57,7 @@ curl -I https://auditoria.fascinantedigital.com/api/health
 ## 🔧 Configuración Adicional
 
 ### Variables de Entorno en Vercel
+
 ```bash
 vercel env add DATAFORSEO_USERNAME
 vercel env add DATAFORSEO_PASSWORD
@@ -65,6 +69,7 @@ vercel env add REDIS_PASSWORD
 ```
 
 ### Configuración de CORS
+
 El dominio personalizado ya está configurado en `vercel.json` para permitir CORS desde cualquier origen.
 
 ## 🚀 Despliegue
@@ -80,16 +85,19 @@ vercel ls
 ## 🔍 Verificación
 
 ### 1. Health Check
+
 ```bash
 curl https://auditoria.fascinantedigital.com/api/health
 ```
 
 ### 2. Documentación API
+
 ```bash
 curl https://auditoria.fascinantedigital.com/api/docs
 ```
 
 ### 3. Test de DataForSEO
+
 ```bash
 curl -X POST https://auditoria.fascinantedigital.com/api/v3/ai_optimization/chat_gpt/llm_responses/models \
   -H "X-API-Key: tu-api-key"
@@ -98,11 +106,13 @@ curl -X POST https://auditoria.fascinantedigital.com/api/v3/ai_optimization/chat
 ## 📊 Monitoreo
 
 ### Vercel Analytics
+
 - Acceder al dashboard de Vercel
 - Ver métricas de performance
 - Monitorear errores
 
 ### Logs
+
 ```bash
 # Ver logs en tiempo real
 vercel logs --follow
@@ -114,11 +124,13 @@ vercel logs --follow --function=api/v3/[...path]
 ## 🔒 Seguridad
 
 ### SSL/TLS
+
 - Vercel maneja automáticamente el SSL
 - Certificado renovado automáticamente
 - HTTP/2 habilitado por defecto
 
 ### Rate Limiting
+
 - Configurado en `lib/rate-limiter.ts`
 - Límites por IP y usuario
 - Bloqueo temporal en caso de exceso
@@ -126,6 +138,7 @@ vercel logs --follow --function=api/v3/[...path]
 ## 🆘 Troubleshooting
 
 ### Problema: Dominio no resuelve
+
 ```bash
 # Verificar DNS
 nslookup auditoria.fascinantedigital.com
@@ -135,6 +148,7 @@ vercel domains ls
 ```
 
 ### Problema: SSL no funciona
+
 ```bash
 # Verificar certificado
 openssl s_client -connect auditoria.fascinantedigital.com:443
@@ -145,6 +159,7 @@ vercel domains add auditoria.fascinantedigital.com
 ```
 
 ### Problema: CORS errors
+
 - Verificar configuración en `vercel.json`
 - Verificar headers en `middleware.ts`
 - Verificar configuración de Cloudflare
@@ -152,11 +167,13 @@ vercel domains add auditoria.fascinantedigital.com
 ## 📈 Optimización
 
 ### Performance
+
 - CDN automático de Vercel
 - Compresión gzip/brotli
 - Caching inteligente
 
 ### Escalabilidad
+
 - Auto-scaling de Vercel
 - Rate limiting configurado
 - Monitoreo de recursos

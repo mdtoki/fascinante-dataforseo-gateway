@@ -5,20 +5,26 @@ import { analyticsService } from '@/lib/analytics';
 import { logger } from '@/lib/logger';
 import { getClientIP } from '@/lib/utils';
 
-export async function POST(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
+export async function POST(
+  request: NextRequest,
+  context: { params: Promise<{ path: string[] }> }
+) {
   const startTime = Date.now();
   const params = await context.params;
   const path = params.path.join('/');
   const fullPath = `/v3/${path}`;
-  
+
   try {
     // Get request body
     const body = await request.json();
-    
+
     // Check cache first
     const cacheKey = cacheService.generateCacheKey(fullPath, body);
-    const cachedResponse = await cacheService.getCachedDataForSEOResponse(fullPath, body);
-    
+    const cachedResponse = await cacheService.getCachedDataForSEOResponse(
+      fullPath,
+      body
+    );
+
     if (cachedResponse) {
       logger.info(`Cache hit for ${fullPath}`);
       return NextResponse.json(cachedResponse, {
@@ -35,7 +41,12 @@ export async function POST(request: NextRequest, context: { params: Promise<{ pa
 
     // Cache successful responses
     if (response.status_code === 20000) {
-      await cacheService.cacheDataForSEOResponse(fullPath, body, response, 3600); // 1 hour cache
+      await cacheService.cacheDataForSEOResponse(
+        fullPath,
+        body,
+        response,
+        3600
+      ); // 1 hour cache
     }
 
     // Track analytics
@@ -66,7 +77,7 @@ export async function POST(request: NextRequest, context: { params: Promise<{ pa
     });
   } catch (error: any) {
     logger.error(`Error in ${fullPath}:`, error);
-    
+
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({
       event: 'dataforseo_error',
@@ -99,17 +110,23 @@ export async function POST(request: NextRequest, context: { params: Promise<{ pa
   }
 }
 
-export async function GET(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ path: string[] }> }
+) {
   const startTime = Date.now();
   const params = await context.params;
   const path = params.path.join('/');
   const fullPath = `/v3/${path}`;
-  
+
   try {
     // Check cache first
     const cacheKey = cacheService.generateCacheKey(fullPath, {});
-    const cachedResponse = await cacheService.getCachedDataForSEOResponse(fullPath, {});
-    
+    const cachedResponse = await cacheService.getCachedDataForSEOResponse(
+      fullPath,
+      {}
+    );
+
     if (cachedResponse) {
       logger.info(`Cache hit for ${fullPath}`);
       return NextResponse.json(cachedResponse, {
@@ -153,7 +170,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pat
     });
   } catch (error: any) {
     logger.error(`Error in ${fullPath}:`, error);
-    
+
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({
       event: 'dataforseo_error',

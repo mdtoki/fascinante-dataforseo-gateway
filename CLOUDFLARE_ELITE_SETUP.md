@@ -10,6 +10,7 @@ Este setup implementa la **estrategia híbrida elite** que usan los desarrollado
 ## 📋 **Prerrequisitos**
 
 ### 🔧 **Herramientas Requeridas**
+
 ```bash
 # Instalar dependencias
 brew install terraform cloudflare/cloudflare/cloudflared jq
@@ -26,7 +27,7 @@ jq --version
    - Ve a: https://dash.cloudflare.com/profile/api-tokens
    - Crea un token con permisos:
      - `Zone:Edit`
-     - `Worker:Edit` 
+     - `Worker:Edit`
      - `Account:Read`
 
 2. **Zone ID**
@@ -37,6 +38,7 @@ jq --version
 ## 🚀 **Setup Rápido**
 
 ### **1. Configuración Automática**
+
 ```bash
 # Ejecutar setup completo
 ./scripts/setup-elite.sh
@@ -45,6 +47,7 @@ jq --version
 ### **2. Configuración Manual**
 
 #### **🏗️ Terraform**
+
 ```bash
 # 1. Configurar credenciales
 cp terraform/terraform.tfvars.example terraform/terraform.tfvars
@@ -58,6 +61,7 @@ terraform apply
 ```
 
 #### **🚇 Cloudflared**
+
 ```bash
 # 1. Autenticar
 cloudflared login
@@ -73,17 +77,18 @@ cloudflared tunnel route dns api-tunnel api.fascinantedigital.com
 
 ## 🌐 **Subdominios Configurados**
 
-| Subdominio | Propósito | Puerto Local | Configuración |
-|------------|-----------|--------------|---------------|
-| `auditoria.fascinantedigital.com` | Dashboard principal | 3000 | `auditoria-config.yml` |
-| `api.auditoria.fascinantedigital.com` | API Gateway | 3001 | `auditoria-config.yml` |
-| `tools.auditoria.fascinantedigital.com` | Herramientas | 3002 | `auditoria-config.yml` |
-| `analytics.auditoria.fascinantedigital.com` | Analytics | 3003 | `auditoria-config.yml` |
-| `api.fascinantedigital.com` | API Principal | 3001 | `api-config.yml` |
+| Subdominio                                  | Propósito           | Puerto Local | Configuración          |
+| ------------------------------------------- | ------------------- | ------------ | ---------------------- |
+| `auditoria.fascinantedigital.com`           | Dashboard principal | 3000         | `auditoria-config.yml` |
+| `api.auditoria.fascinantedigital.com`       | API Gateway         | 3001         | `auditoria-config.yml` |
+| `tools.auditoria.fascinantedigital.com`     | Herramientas        | 3002         | `auditoria-config.yml` |
+| `analytics.auditoria.fascinantedigital.com` | Analytics           | 3003         | `auditoria-config.yml` |
+| `api.fascinantedigital.com`                 | API Principal       | 3001         | `api-config.yml`       |
 
 ## 🎯 **Comandos Elite**
 
 ### **🚇 Gestión de Túneles**
+
 ```bash
 # Iniciar todos los túneles
 ./scripts/start-tunnels.sh
@@ -100,6 +105,7 @@ cloudflared tunnel info auditoria-tunnel
 ```
 
 ### **🏗️ Gestión de Terraform**
+
 ```bash
 # Planificar cambios
 cd terraform && terraform plan
@@ -112,6 +118,7 @@ cd terraform && terraform destroy
 ```
 
 ### **🧪 Testing**
+
 ```bash
 # Health checks
 curl https://auditoria.fascinantedigital.com/health
@@ -125,11 +132,13 @@ curl -H "X-API-Key: tu-api-key" \
 ## 📊 **Monitoreo**
 
 ### **📈 Métricas**
+
 - **Terraform**: Estado en `terraform/terraform.tfstate`
 - **Cloudflared**: Logs en `logs/`
 - **Túneles**: PIDs en `pids/`
 
 ### **🔍 Logs**
+
 ```bash
 # Ver logs de túneles
 tail -f logs/auditoria-tunnel.log
@@ -142,11 +151,13 @@ curl http://localhost:8080/metrics
 ## 🛡️ **Seguridad**
 
 ### **🔐 Autenticación**
+
 - **API Keys**: Requeridas para endpoints
 - **Zero Trust**: Configurado para auditoria
 - **CORS**: Configurado para dominios permitidos
 
 ### **🛡️ Protecciones**
+
 - **Rate Limiting**: 100 requests/minuto por IP
 - **Caching**: Redis + Memory fallback
 - **SSL**: Forzado en todos los endpoints
@@ -154,6 +165,7 @@ curl http://localhost:8080/metrics
 ## 🚀 **Despliegue en Producción**
 
 ### **1. Preparar Servidor**
+
 ```bash
 # Instalar dependencias
 sudo apt update
@@ -165,6 +177,7 @@ sudo dpkg -i cloudflared-linux-amd64.deb
 ```
 
 ### **2. Configurar Servicio**
+
 ```bash
 # Crear servicio systemd
 sudo cp cloudflared/cloudflared.service /etc/systemd/system/
@@ -174,6 +187,7 @@ sudo systemctl start cloudflared
 ```
 
 ### **3. Monitoreo**
+
 ```bash
 # Ver estado del servicio
 sudo systemctl status cloudflared
@@ -187,6 +201,7 @@ sudo journalctl -u cloudflared -f
 ### **❌ Problemas Comunes**
 
 #### **Túnel no se conecta**
+
 ```bash
 # Verificar autenticación
 cloudflared tunnel list
@@ -199,6 +214,7 @@ cloudflared tunnel run auditoria-tunnel --config cloudflared/auditoria-config.ym
 ```
 
 #### **DNS no resuelve**
+
 ```bash
 # Verificar registros DNS
 dig auditoria.fascinantedigital.com
@@ -208,6 +224,7 @@ cloudflared tunnel route list auditoria-tunnel
 ```
 
 #### **Terraform falla**
+
 ```bash
 # Verificar credenciales
 terraform plan

@@ -144,6 +144,10 @@ export async function getCachedResponse(key: string): Promise<any | null> {
 /**
  * Set cached response
  */
-export async function setCachedResponse(key: string, value: any, ttl: number = 3600): Promise<boolean> {
+export async function setCachedResponse(
+  key: string,
+  value: any,
+  ttl: number = 3600
+): Promise<boolean> {
   return cacheService.set(key, value, ttl);
 }

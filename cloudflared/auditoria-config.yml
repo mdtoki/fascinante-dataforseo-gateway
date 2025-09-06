@@ -50,14 +50,14 @@ originRequest:
   tcpKeepAlive: 30s
   keepAliveConnections: 10
   keepAliveTimeout: 90s
-  
+
   # Headers personalizados
   httpHostHeader: auditoria.fascinantedigital.com
-  
+
   # Configuración de proxy
   noTLSVerify: false
   disableChunkedEncoding: false
-  
+
   # Configuración de buffer
   bufferSize: 65536
 

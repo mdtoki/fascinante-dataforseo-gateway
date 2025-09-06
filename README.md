@@ -10,6 +10,7 @@
 ## ✨ Características Principales
 
 ### 🔐 **Seguridad Avanzada**
+
 - **Autenticación dual**: API Keys + JWT
 - **Rate limiting** por IP y usuario
 - **Headers de seguridad** automáticos
@@ -17,6 +18,7 @@
 - **Validación** de requests con Zod
 
 ### ⚡ **Performance Optimizada**
+
 - **Caching inteligente** con Redis + fallback a memoria
 - **Compresión** automática
 - **CDN ready** para Vercel
@@ -24,6 +26,7 @@
 - **Response time** < 1 segundo
 
 ### 📊 **Monitoreo Profesional**
+
 - **Analytics** en tiempo real
 - **Logging estructurado** con Winston
 - **Health checks** automáticos
@@ -31,6 +34,7 @@
 - **Error tracking** completo
 
 ### 🛠️ **Stack Tecnológico**
+
 - **Framework**: Next.js 15 (App Router)
 - **Lenguaje**: TypeScript 5.0
 - **Styling**: Tailwind CSS
@@ -42,22 +46,26 @@
 ## 🚀 Inicio Rápido
 
 ### 1. **Clonar el Repositorio**
+
 ```bash
 git clone https://github.com/alexanderovie/fascinante-dataforseo-gateway.git
 cd fascinante-dataforseo-gateway
 ```
 
 ### 2. **Instalar Dependencias**
+
 ```bash
 pnpm install
 ```
 
 ### 3. **Configurar Variables de Entorno**
+
 ```bash
 cp env.local.example .env.local
 ```
 
 Editar `.env.local` con tus credenciales:
+
 ```env
 # DataForSEO API Configuration
 DATAFORSEO_USERNAME=your-email@example.com
@@ -79,11 +87,13 @@ LOG_LEVEL=info
 ```
 
 ### 4. **Ejecutar en Desarrollo**
+
 ```bash
 pnpm dev
 ```
 
 ### 5. **Probar la API**
+
 ```bash
 # Health check
 curl http://localhost:3000/api/health
@@ -102,24 +112,26 @@ curl -H "X-API-Key: your-api-key" \
 
 ### **Endpoints Principales**
 
-| Endpoint | Método | Descripción |
-|----------|--------|-------------|
-| `/api/health` | GET | Health check del sistema |
-| `/api/docs` | GET | Documentación OpenAPI 3.1.0 |
-| `/api/v3/ai_optimization/chat_gpt/llm_responses/models` | GET | Modelos AI disponibles |
-| `/api/v3/ai_optimization/chat_gpt/llm_responses/live` | POST | Generar contenido AI |
-| `/api/v3/serp/google/organic/live/advanced` | POST | Análisis SERP |
-| `/api/v3/keywords_data/google_ads/search_volume/live` | POST | Volumen de búsqueda |
+| Endpoint                                                | Método | Descripción                 |
+| ------------------------------------------------------- | ------ | --------------------------- |
+| `/api/health`                                           | GET    | Health check del sistema    |
+| `/api/docs`                                             | GET    | Documentación OpenAPI 3.1.0 |
+| `/api/v3/ai_optimization/chat_gpt/llm_responses/models` | GET    | Modelos AI disponibles      |
+| `/api/v3/ai_optimization/chat_gpt/llm_responses/live`   | POST   | Generar contenido AI        |
+| `/api/v3/serp/google/organic/live/advanced`             | POST   | Análisis SERP               |
+| `/api/v3/keywords_data/google_ads/search_volume/live`   | POST   | Volumen de búsqueda         |
 
 ### **Autenticación**
 
 #### API Key (Recomendado)
+
 ```bash
 curl -H "X-API-Key: your-api-key" \
   http://localhost:3000/api/v3/ai_optimization/chat_gpt/llm_responses/models
 ```
 
 #### JWT Token
+
 ```bash
 curl -H "Authorization: Bearer your-jwt-token" \
   http://localhost:3000/api/v3/ai_optimization/chat_gpt/llm_responses/models
@@ -128,6 +140,7 @@ curl -H "Authorization: Bearer your-jwt-token" \
 ### **Ejemplos de Uso**
 
 #### 1. **Generar Contenido SEO**
+
 ```bash
 curl -H "X-API-Key: your-api-key" \
   -X POST http://localhost:3000/api/v3/ai_optimization/chat_gpt/llm_responses/live \
@@ -141,6 +154,7 @@ curl -H "X-API-Key: your-api-key" \
 ```
 
 #### 2. **Análisis SERP**
+
 ```bash
 curl -H "X-API-Key: your-api-key" \
   -X POST http://localhost:3000/api/v3/serp/google/organic/live/advanced \
@@ -154,6 +168,7 @@ curl -H "X-API-Key: your-api-key" \
 ```
 
 #### 3. **Volumen de Búsqueda**
+
 ```bash
 curl -H "X-API-Key: your-api-key" \
   -X POST http://localhost:3000/api/v3/keywords_data/google_ads/search_volume/live \
@@ -168,6 +183,7 @@ curl -H "X-API-Key: your-api-key" \
 ## 🚀 Despliegue
 
 ### **Vercel (Recomendado)**
+
 ```bash
 # Instalar Vercel CLI
 npm i -g vercel
@@ -177,6 +193,7 @@ vercel --prod
 ```
 
 ### **Docker**
+
 ```bash
 # Construir imagen
 docker build -t fascinante-dataforseo-gateway .
@@ -190,6 +207,7 @@ docker run -p 3000:3000 \
 ```
 
 ### **Configuración de Dominio**
+
 1. Configurar DNS para `auditoria.fascinantedigital.com`
 2. Actualizar `vercel.json` con el dominio
 3. Configurar SSL automático
@@ -197,6 +215,7 @@ docker run -p 3000:3000 \
 ## 📊 Monitoreo y Analytics
 
 ### **Métricas Disponibles**
+
 - **Requests por minuto/hora**
 - **Costo total de DataForSEO**
 - **Tiempo de respuesta promedio**
@@ -205,6 +224,7 @@ docker run -p 3000:3000 \
 - **Errores por endpoint**
 
 ### **Logs Estructurados**
+
 ```json
 {
   "level": "info",
@@ -221,6 +241,7 @@ docker run -p 3000:3000 \
 ## 🧪 Testing
 
 ### **Ejecutar Tests**
+
 ```bash
 # Test completo del gateway
 ./test-gateway.sh
@@ -231,6 +252,7 @@ curl -H "X-API-Key: your-api-key" \
 ```
 
 ### **Resultados de Pruebas**
+
 - ✅ **Health Check**: 200 OK
 - ✅ **Documentación**: OpenAPI disponible
 - ✅ **AI Models**: 33 modelos disponibles
@@ -242,12 +264,14 @@ curl -H "X-API-Key: your-api-key" \
 ## 🔧 Configuración Avanzada
 
 ### **Rate Limiting**
+
 ```env
 API_RATE_LIMIT_PER_MINUTE=200
 API_RATE_LIMIT_BURST=50
 ```
 
 ### **Caching**
+
 ```env
 REDIS_URL=redis://localhost:6379
 CACHE_TTL_DEFAULT=3600
@@ -256,6 +280,7 @@ CACHE_TTL_SERP=7200
 ```
 
 ### **Logging**
+
 ```env
 LOG_LEVEL=debug
 ENABLE_ANALYTICS=true
@@ -292,4 +317,4 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
 **Desarrollado con ❤️ por [Fascinante Digital](https://fascinantedigital.com)**
 
-*API Gateway PRO ELITE para DataForSEO - Next.js 15, TypeScript, Rate Limiting, Caching, Analytics*
+_API Gateway PRO ELITE para DataForSEO - Next.js 15, TypeScript, Rate Limiting, Caching, Analytics_

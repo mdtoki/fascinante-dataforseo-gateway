@@ -51,7 +51,9 @@ export class DataForSEOClient {
     // Request interceptor for logging
     this.client.interceptors.request.use(
       (config) => {
-        logger.info(`DataForSEO Request: ${config.method?.toUpperCase()} ${config.url}`);
+        logger.info(
+          `DataForSEO Request: ${config.method?.toUpperCase()} ${config.url}`
+        );
         return config;
       },
       (error) => {
@@ -63,7 +65,9 @@ export class DataForSEOClient {
     // Response interceptor for logging and error handling
     this.client.interceptors.response.use(
       (response: AxiosResponse<DataForSEOResponse>) => {
-        logger.info(`DataForSEO Response: ${response.status} - Cost: ${response.data.cost}`);
+        logger.info(
+          `DataForSEO Response: ${response.status} - Cost: ${response.data.cost}`
+        );
         return response;
       },
       (error) => {
@@ -85,9 +89,13 @@ export class DataForSEOClient {
     options?: { timeout?: number }
   ): Promise<DataForSEOResponse<T>> {
     try {
-      const response = await this.client.post<DataForSEOResponse<T>>(endpoint, data, {
-        timeout: options?.timeout || this.config.timeout,
-      });
+      const response = await this.client.post<DataForSEOResponse<T>>(
+        endpoint,
+        data,
+        {
+          timeout: options?.timeout || this.config.timeout,
+        }
+      );
       return response.data;
     } catch (error: any) {
       logger.error(`DataForSEO POST Error for ${endpoint}:`, error.message);
@@ -123,7 +131,10 @@ export class DataForSEOClient {
   /**
    * Generate AI content
    */
-  async generateAIContent(prompt: string, model: string = 'gpt-4o-mini'): Promise<DataForSEOResponse> {
+  async generateAIContent(
+    prompt: string,
+    model: string = 'gpt-4o-mini'
+  ): Promise<DataForSEOResponse> {
     return this.post('/v3/ai_optimization/chat_gpt/llm_responses/live', [
       {
         user_prompt: prompt,
@@ -139,7 +150,10 @@ export class DataForSEOClient {
   /**
    * Analyze SERP for keywords
    */
-  async analyzeSERP(keyword: string, location: string = 'United States'): Promise<DataForSEOResponse> {
+  async analyzeSERP(
+    keyword: string,
+    location: string = 'United States'
+  ): Promise<DataForSEOResponse> {
     return this.post('/v3/serp/google/organic/task_post', [
       {
         keyword,

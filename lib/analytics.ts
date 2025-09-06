@@ -58,18 +58,30 @@ class AnalyticsService {
    */
   getMetrics(timeRange: number = 24 * 60 * 60 * 1000): AnalyticsMetrics {
     const cutoffTime = new Date(Date.now() - timeRange);
-    const recentEvents = this.events.filter(event => event.timestamp >= cutoffTime);
+    const recentEvents = this.events.filter(
+      (event) => event.timestamp >= cutoffTime
+    );
 
     const totalRequests = recentEvents.length;
-    const totalCost = recentEvents.reduce((sum, event) => sum + (event.cost || 0), 0);
-    const averageResponseTime = recentEvents.reduce((sum, event) => sum + event.responseTime, 0) / totalRequests || 0;
-    const errorRate = recentEvents.filter(event => event.statusCode >= 400).length / totalRequests || 0;
+    const totalCost = recentEvents.reduce(
+      (sum, event) => sum + (event.cost || 0),
+      0
+    );
+    const averageResponseTime =
+      recentEvents.reduce((sum, event) => sum + event.responseTime, 0) /
+        totalRequests || 0;
+    const errorRate =
+      recentEvents.filter((event) => event.statusCode >= 400).length /
+        totalRequests || 0;
 
     // Top endpoints
-    const endpointCounts = recentEvents.reduce((counts, event) => {
-      counts[event.endpoint] = (counts[event.endpoint] || 0) + 1;
-      return counts;
-    }, {} as Record<string, number>);
+    const endpointCounts = recentEvents.reduce(
+      (counts, event) => {
+        counts[event.endpoint] = (counts[event.endpoint] || 0) + 1;
+        return counts;
+      },
+      {} as Record<string, number>
+    );
 
     const topEndpoints = Object.entries(endpointCounts)
       .map(([endpoint, count]) => ({ endpoint, count }))
@@ -77,11 +89,14 @@ class AnalyticsService {
       .slice(0, 10);
 
     // Top users
-    const userCounts = recentEvents.reduce((counts, event) => {
-      const userId = event.userId || event.apiKey || 'anonymous';
-      counts[userId] = (counts[userId] || 0) + 1;
-      return counts;
-    }, {} as Record<string, number>);
+    const userCounts = recentEvents.reduce(
+      (counts, event) => {
+        const userId = event.userId || event.apiKey || 'anonymous';
+        counts[userId] = (counts[userId] || 0) + 1;
+        return counts;
+      },
+      {} as Record<string, number>
+    );
 
     const topUsers = Object.entries(userCounts)
       .map(([userId, count]) => ({ userId, count }))
@@ -103,7 +118,7 @@ class AnalyticsService {
    */
   getUserEvents(userId: string, limit: number = 100): AnalyticsEvent[] {
     return this.events
-      .filter(event => event.userId === userId || event.apiKey === userId)
+      .filter((event) => event.userId === userId || event.apiKey === userId)
       .slice(-limit)
       .reverse();
   }
@@ -113,7 +128,7 @@ class AnalyticsService {
    */
   clearOldEvents(olderThan: number = 7 * 24 * 60 * 60 * 1000): void {
     const cutoffTime = new Date(Date.now() - olderThan);
-    this.events = this.events.filter(event => event.timestamp >= cutoffTime);
+    this.events = this.events.filter((event) => event.timestamp >= cutoffTime);
   }
 }
 

@@ -1,10 +1,11 @@
 # 🤝 Guía de Contribución
 
-¡Gracias por tu interés en contribuir al DataForSEO API Gateway PRO ELITE! 
+¡Gracias por tu interés en contribuir al DataForSEO API Gateway PRO ELITE!
 
 ## 🚀 Cómo Contribuir
 
 ### 1. **Fork y Clone**
+
 ```bash
 # Fork el repositorio en GitHub
 git clone https://github.com/tu-usuario/fascinante-dataforseo-gateway.git
@@ -12,6 +13,7 @@ cd fascinante-dataforseo-gateway
 ```
 
 ### 2. **Configurar el Entorno**
+
 ```bash
 # Instalar dependencias
 pnpm install
@@ -22,6 +24,7 @@ cp env.local.example .env.local
 ```
 
 ### 3. **Crear Feature Branch**
+
 ```bash
 git checkout -b feature/nueva-funcionalidad
 # o
@@ -29,12 +32,14 @@ git checkout -b fix/correccion-bug
 ```
 
 ### 4. **Desarrollar**
+
 - Sigue las convenciones de código existentes
 - Añade tests para nuevas funcionalidades
 - Actualiza la documentación si es necesario
 - Asegúrate de que todos los tests pasen
 
 ### 5. **Testing**
+
 ```bash
 # Ejecutar tests
 pnpm test
@@ -50,6 +55,7 @@ pnpm build
 ```
 
 ### 6. **Commit y Push**
+
 ```bash
 git add .
 git commit -m "feat: añadir nueva funcionalidad X"
@@ -57,6 +63,7 @@ git push origin feature/nueva-funcionalidad
 ```
 
 ### 7. **Crear Pull Request**
+
 - Ve a GitHub y crea un Pull Request
 - Describe claramente los cambios
 - Menciona cualquier issue relacionado
@@ -64,7 +71,9 @@ git push origin feature/nueva-funcionalidad
 ## 📋 Convenciones
 
 ### **Commits**
+
 Usa [Conventional Commits](https://www.conventionalcommits.org/):
+
 - `feat:` nueva funcionalidad
 - `fix:` corrección de bug
 - `docs:` cambios en documentación
@@ -74,12 +83,14 @@ Usa [Conventional Commits](https://www.conventionalcommits.org/):
 - `chore:` tareas de mantenimiento
 
 ### **Código**
+
 - **TypeScript**: Usa tipos estrictos
 - **ESLint**: Sigue las reglas configuradas
 - **Prettier**: Formato automático
 - **Naming**: camelCase para variables, PascalCase para componentes
 
 ### **Estructura de Archivos**
+
 ```
 app/
 ├── api/           # API routes
@@ -97,11 +108,13 @@ lib/
 ## 🧪 Testing
 
 ### **Tipos de Tests**
+
 - **Unit tests**: Funciones individuales
 - **Integration tests**: APIs y endpoints
 - **E2E tests**: Flujos completos
 
 ### **Ejecutar Tests**
+
 ```bash
 # Todos los tests
 pnpm test
@@ -116,12 +129,15 @@ pnpm test:coverage
 ## 📚 Documentación
 
 ### **Actualizar Documentación**
+
 - README.md para cambios principales
 - Comentarios en código para funciones complejas
 - OpenAPI docs se generan automáticamente
 
 ### **Ejemplos de Uso**
+
 Añade ejemplos en:
+
 - README.md
 - Comentarios en código
 - Archivos de ejemplo en `/examples`
@@ -129,54 +145,68 @@ Añade ejemplos en:
 ## 🐛 Reportar Bugs
 
 ### **Template de Bug Report**
+
 ```markdown
 ## 🐛 Descripción del Bug
+
 Descripción clara del problema.
 
 ## 🔄 Pasos para Reproducir
+
 1. Ve a '...'
 2. Haz click en '...'
 3. Scroll hasta '...'
 4. Ve el error
 
 ## 🎯 Comportamiento Esperado
+
 Qué debería pasar.
 
 ## 📸 Screenshots
+
 Si aplica, añade screenshots.
 
 ## 🖥️ Entorno
+
 - OS: [e.g. macOS, Windows, Linux]
 - Browser: [e.g. Chrome, Safari]
 - Version: [e.g. 22]
 
 ## 📋 Información Adicional
+
 Cualquier otra información relevante.
 ```
 
 ## ✨ Sugerir Features
 
 ### **Template de Feature Request**
+
 ```markdown
 ## 🚀 Descripción de la Feature
+
 Descripción clara de la funcionalidad deseada.
 
 ## 💡 Motivación
+
 Por qué esta feature sería útil.
 
 ## 📋 Descripción Detallada
+
 Cómo debería funcionar.
 
 ## 🎯 Casos de Uso
+
 Ejemplos específicos de uso.
 
 ## 📋 Consideraciones Adicionales
+
 Cualquier consideración técnica o de diseño.
 ```
 
 ## 🏷️ Labels
 
 Usamos estas labels:
+
 - `bug`: Algo no funciona
 - `enhancement`: Nueva funcionalidad
 - `documentation`: Mejoras en docs

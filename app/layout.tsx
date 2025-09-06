@@ -6,9 +6,18 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Fascinante Digital - DataForSEO API Gateway',
-  description: 'API Gateway PRO ELITE para DataForSEO con Next.js 15. Acceso escalable y seguro a herramientas de SEO y análisis de datos.',
-  keywords: ['SEO', 'DataForSEO', 'API Gateway', 'Marketing Digital', 'Análisis de Datos'],
-  authors: [{ name: 'Fascinante Digital', url: 'https://fascinantedigital.com' }],
+  description:
+    'API Gateway PRO ELITE para DataForSEO con Next.js 15. Acceso escalable y seguro a herramientas de SEO y análisis de datos.',
+  keywords: [
+    'SEO',
+    'DataForSEO',
+    'API Gateway',
+    'Marketing Digital',
+    'Análisis de Datos',
+  ],
+  authors: [
+    { name: 'Fascinante Digital', url: 'https://fascinantedigital.com' },
+  ],
   creator: 'Fascinante Digital',
   publisher: 'Fascinante Digital',
   robots: {

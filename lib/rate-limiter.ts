@@ -10,7 +10,8 @@ interface RateLimitConfig {
 }
 
 class RateLimiterService {
-  private rateLimiters: Map<string, RateLimiterMemory | RateLimiterRedis> = new Map();
+  private rateLimiters: Map<string, RateLimiterMemory | RateLimiterRedis> =
+    new Map();
   private redis: RedisClientType | null = null;
 
   constructor() {
@@ -32,9 +33,11 @@ class RateLimiterService {
     }
   }
 
-  private getRateLimiter(config: RateLimitConfig): RateLimiterMemory | RateLimiterRedis {
+  private getRateLimiter(
+    config: RateLimitConfig
+  ): RateLimiterMemory | RateLimiterRedis {
     const key = `${config.keyPrefix}-${config.points}-${config.duration}`;
-    
+
     if (!this.rateLimiters.has(key)) {
       const limiter = this.redis
         ? new RateLimiterRedis({
@@ -64,7 +67,7 @@ class RateLimiterService {
     try {
       const limiter = this.getRateLimiter(config);
       const result = await limiter.consume(identifier);
-      
+
       return {
         allowed: true,
         remainingPoints: result.remainingPoints,
@@ -79,7 +82,10 @@ class RateLimiterService {
     }
   }
 
-  async resetRateLimit(identifier: string, config: RateLimitConfig): Promise<void> {
+  async resetRateLimit(
+    identifier: string,
+    config: RateLimitConfig
+  ): Promise<void> {
     try {
       const limiter = this.getRateLimiter(config);
       await limiter.delete(identifier);
@@ -121,7 +127,7 @@ export async function applyRateLimiting(
   userId: string
 ): Promise<{ allowed: boolean; message?: string }> {
   const ip = request.headers.get('x-forwarded-for') || 'unknown';
-  
+
   // Check IP rate limit
   const ipLimit = await rateLimiterService.checkRateLimit(ip, RATE_LIMITS.IP);
   if (!ipLimit.allowed) {
@@ -132,7 +138,10 @@ export async function applyRateLimiting(
   }
 
   // Check user rate limit
-  const userLimit = await rateLimiterService.checkRateLimit(userId, RATE_LIMITS.USER);
+  const userLimit = await rateLimiterService.checkRateLimit(
+    userId,
+    RATE_LIMITS.USER
+  );
   if (!userLimit.allowed) {
     return {
       allowed: false,
