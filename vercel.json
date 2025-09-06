@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "DATAFORSEO_USERNAME": "@dataforseo-username",
-    "DATAFORSEO_PASSWORD": "@dataforseo-password",
-    "API_GATEWAY_SECRET": "@api-gateway-secret",
-    "JWT_SECRET": "@jwt-secret"
-  },
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30
