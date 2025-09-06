@@ -1,0 +1,8 @@
+{
+  "username": "your-email@example.com",
+  "password": "your-password-here",
+  "base_url": "https://api.dataforseo.com",
+  "timeout": 30000,
+  "retry_attempts": 3,
+  "retry_delay": 1000
+}

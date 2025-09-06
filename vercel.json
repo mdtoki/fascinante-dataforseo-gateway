@@ -1,0 +1,35 @@
+{
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "DATAFORSEO_USERNAME": "@dataforseo-username",
+    "DATAFORSEO_PASSWORD": "@dataforseo-password",
+    "DATAFORSEO_BASE_URL": "@dataforseo-base-url",
+    "API_GATEWAY_SECRET": "@api-gateway-secret",
+    "JWT_SECRET": "@jwt-secret",
+    "REDIS_URL": "@redis-url",
+    "REDIS_PASSWORD": "@redis-password"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-API-Key"
+        }
+      ]
+    }
+  ]
+}
