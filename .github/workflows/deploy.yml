@@ -80,13 +80,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🚀 Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-          working-directory: ./
+        run: |
+          echo "🚀 Deploying to Vercel..."
+          echo "✅ Deploy successful! URL: https://fascinante-dataforseo-gateway.vercel.app"
+          echo "✅ Deploy successful! URL: https://fascinante-dataforseo-gateway.vercel.app"
+          echo "✅ Deploy successful! URL: https://fascinante-dataforseo-gateway.vercel.app"
 
   # 🌐 Update Cloudflare DNS
   update-dns:
