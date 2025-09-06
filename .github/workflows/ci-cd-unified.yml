@@ -1,11 +1,11 @@
-# 🚀 FASCINANTE DIGITAL - DEPLOY ELITE
-# CI/CD automático para auditoria.fascinantedigital.com
+# 🚀 FASCINANTE DIGITAL - CI/CD UNIFIED ELITE
+# Workflow unificado que combina CI y CD en una sola ejecución
 
-name: 🚀 Deploy Elite
+name: 🚀 CI/CD Unified Elite
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
     branches: [main]
 
@@ -14,7 +14,7 @@ env:
   PNPM_VERSION: '9'
 
 jobs:
-  # 🧪 Test y Build
+  # 🧪 Test y Build (siempre se ejecuta)
   test-and-build:
     name: 🧪 Test & Build
     runs-on: ubuntu-latest
@@ -54,12 +54,12 @@ jobs:
           API_GATEWAY_SECRET: ${{ secrets.API_GATEWAY_SECRET }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
-  # 🚀 Deploy to Vercel
+  # 🚀 Deploy to Vercel (solo en main)
   deploy-vercel:
     name: 🚀 Deploy to Vercel
     needs: test-and-build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
       - name: 📥 Checkout code
@@ -80,18 +80,19 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🚀 Deploy to Vercel
-        run: |
-          echo "🚀 Deploying to Vercel..."
-          echo "✅ Deploy successful! URL: https://fascinante-dataforseo-gateway.vercel.app"
-          echo "✅ Deploy successful! URL: https://fascinante-dataforseo-gateway.vercel.app"
-          echo "✅ Deploy successful! URL: https://fascinante-dataforseo-gateway.vercel.app"
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
 
-  # 🌐 Update Cloudflare DNS
+  # 🌐 Update Cloudflare DNS (solo en main, después de deploy)
   update-dns:
     name: 🌐 Update Cloudflare DNS
     needs: deploy-vercel
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
       - name: 📥 Checkout code
