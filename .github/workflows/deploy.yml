@@ -5,13 +5,13 @@ name: 🚀 Deploy Elite
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 env:
-  NODE_VERSION: '18'
-  PNPM_VERSION: '8'
+  NODE_VERSION: '20'
+  PNPM_VERSION: '9'
 
 jobs:
   # 🧪 Test y Build
@@ -57,21 +57,22 @@ jobs:
     name: 🚀 Deploy to Vercel
     needs: test-and-build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
@@ -90,7 +91,7 @@ jobs:
     name: 🌐 Update Cloudflare DNS
     needs: deploy-vercel
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: 📥 Checkout code
@@ -98,9 +99,6 @@ jobs:
 
       - name: 🌐 Update DNS Records
         run: |
-          # Obtener IP de Vercel
-          VERCEL_IP=$(dig +short cname.vercel-dns.com | head -1)
-          
           # Actualizar DNS con Terraform
           cd terraform
           
@@ -115,32 +113,10 @@ jobs:
           terraform plan
           terraform apply -auto-approve
 
-  # 🚇 Update Cloudflared Tunnels
-  update-tunnels:
-    name: 🚇 Update Cloudflared Tunnels
-    needs: update-dns
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🚇 Install Cloudflared
-        run: |
-          wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-          sudo dpkg -i cloudflared-linux-amd64.deb
-
-      - name: 🚇 Update Tunnel Configuration
-        run: |
-          # Actualizar configuración de túneles
-          # Esto se ejecutará en el servidor de producción
-          echo "Tunnel configuration updated"
-
   # 📊 Notify Deployment
   notify:
     name: 📊 Notify Deployment
-    needs: [deploy-vercel, update-dns, update-tunnels]
+    needs: [deploy-vercel, update-dns]
     runs-on: ubuntu-latest
     if: always()
     
