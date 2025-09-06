@@ -1,22 +1,5 @@
 {
   "version": 2,
-  "name": "fascinante-dataforseo-gateway",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "env": {
     "DATAFORSEO_USERNAME": "@dataforseo-username",
     "DATAFORSEO_PASSWORD": "@dataforseo-password",
