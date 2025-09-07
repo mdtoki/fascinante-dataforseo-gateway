@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     // Generate cache key
     const cacheKey = cacheService.generateCacheKey(endpoint, body);
-    const cachedResponse = await cacheService.getCachedResponse(cacheKey);
+    const cachedResponse = await cacheService.get(cacheKey);
 
     if (cachedResponse) {
       logger.info(`Cache hit for Google My Business Info`);
@@ -151,7 +151,7 @@ export async function GET(request: NextRequest) {
 
     // Generate cache key
     const cacheKey = cacheService.generateCacheKey(endpoint, { task_id: taskId });
-    const cachedResponse = await cacheService.getCachedResponse(cacheKey);
+    const cachedResponse = await cacheService.get(cacheKey);
 
     if (cachedResponse) {
       logger.info(`Cache hit for Google My Business Info task: ${taskId}`);

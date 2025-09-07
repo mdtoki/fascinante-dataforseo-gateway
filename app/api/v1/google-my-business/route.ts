@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const cacheKey = cacheService.generateCacheKey(endpoint, { action, accountId, locationId });
-    const cachedResponse = await cacheService.getCachedResponse(cacheKey);
+    const cachedResponse = await cacheService.get(cacheKey);
 
     if (cachedResponse) {
       logger.info(`Cache hit for Google My Business: ${action}`);
