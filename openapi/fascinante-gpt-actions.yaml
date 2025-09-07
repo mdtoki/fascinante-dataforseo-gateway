@@ -1,0 +1,386 @@
+openapi: 3.1.0
+info:
+  title: Fascinante Digital – GPT Actions
+  version: "1.0.0"
+  description: |
+    API Gateway para GPT Actions de Fascinante Digital
+    Soporta autenticación API Key y OAuth 2.0 + OIDC
+    
+    ## Autenticación
+    
+    Esta API soporta dos modos de autenticación:
+    
+    ### API Key (Simple)
+    - Usa tu API Key de GPT Actions
+    - Ideal para integraciones simples
+    - No requiere OAuth flow
+    
+    ### OAuth 2.0 + OIDC (Avanzado)
+    - Flujo OAuth completo con PKCE
+    - Acceso a información del usuario
+    - Consent explícito para datos
+    - Ideal para integraciones avanzadas
+    
+    ## Endpoints
+    
+    - **POST /api/gpt-actions/leads** - Crear leads con consent explícito
+    - **POST /api/gpt-actions/pagespeed** - Ejecutar audit de PageSpeed
+    
+    ## Compliance
+    
+    - GDPR compliant con consent explícito
+    - Data minimization (solo datos necesarios)
+    - IP hashing para privacidad
+    - Logging sin datos sensibles
+servers:
+  - url: https://auditoria.fascinantedigital.com
+    description: Production server
+paths:
+  /api/gpt-actions/leads:
+    post:
+      operationId: createLead
+      summary: Create a lead with explicit consent
+      description: |
+        Stores a lead from GPT Actions. Requires explicit user consent.
+        Supports both API Key and OAuth authentication.
+        
+        ## Consent Requirement
+        
+        El campo `consent` debe ser `true` explícitamente. Si es `false` o no se proporciona,
+        la request será rechazada con error 400.
+        
+        ## Data Collection
+        
+        - **Email**: Requerido para contacto
+        - **Name**: Opcional, nombre del usuario
+        - **Notes**: Opcional, contexto adicional
+        - **Source**: Automáticamente "gpt-actions"
+        
+        ## Privacy
+        
+        - IP address se hashea para privacidad
+        - User agent se registra para analytics
+        - Solo se almacenan datos con consent explícito
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, consent]
+              properties:
+                email: 
+                  type: string
+                  format: email
+                  description: "User email address"
+                  example: "usuario@empresa.com"
+                source: 
+                  type: string
+                  default: "gpt-actions"
+                  description: "Lead source"
+                  example: "gpt-actions"
+                consent: 
+                  type: boolean
+                  description: "Explicit consent to be contacted"
+                  example: true
+                name: 
+                  type: string
+                  description: "User name (optional)"
+                  example: "Juan Pérez"
+                notes: 
+                  type: string
+                  description: "Additional notes (optional)"
+                  example: "Interesado en audit de PageSpeed"
+            examples:
+              basic_lead:
+                summary: "Basic lead with consent"
+                value:
+                  email: "usuario@empresa.com"
+                  consent: true
+              full_lead:
+                summary: "Full lead with all fields"
+                value:
+                  email: "usuario@empresa.com"
+                  consent: true
+                  name: "Juan Pérez"
+                  notes: "Interesado en audit de PageSpeed"
+      responses:
+        "201":
+          description: Lead created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: string
+                    description: "Unique lead identifier"
+                    example: "lead_12345"
+                  email: 
+                    type: string
+                    format: email
+                    example: "usuario@empresa.com"
+                  consent: 
+                    type: boolean
+                    example: true
+                  created_at: 
+                    type: string
+                    format: date-time
+                    example: "2024-01-15T10:30:00Z"
+              examples:
+                success:
+                  summary: "Lead created successfully"
+                  value:
+                    id: "lead_12345"
+                    email: "usuario@empresa.com"
+                    consent: true
+                    created_at: "2024-01-15T10:30:00Z"
+        "400": 
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Invalid request data"
+                  details: 
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field: 
+                          type: string
+                        message: 
+                          type: string
+              examples:
+                invalid_email:
+                  summary: "Invalid email format"
+                  value:
+                    error: "Invalid request data"
+                    details:
+                      - field: "email"
+                        message: "Invalid email format"
+                no_consent:
+                  summary: "Missing consent"
+                  value:
+                    error: "Invalid request data"
+                    details:
+                      - field: "consent"
+                        message: "Explicit consent is required"
+        "401": 
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Unauthorized"
+              examples:
+                missing_auth:
+                  summary: "Missing authorization header"
+                  value:
+                    error: "Unauthorized"
+                invalid_token:
+                  summary: "Invalid token"
+                  value:
+                    error: "Unauthorized"
+        "500": 
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Internal server error"
+  /api/gpt-actions/pagespeed:
+    post:
+      operationId: runPagespeedAudit
+      summary: Run Core Web Vitals audit
+      description: |
+        Triggers a PageSpeed audit and returns Core Web Vitals results.
+        Supports both mobile and desktop strategies.
+        
+        ## Strategies
+        
+        - **mobile**: Audit para dispositivos móviles
+        - **desktop**: Audit para dispositivos de escritorio
+        
+        ## Response
+        
+        Retorna métricas de Core Web Vitals:
+        - **LCP** (Largest Contentful Paint): Tiempo de carga del contenido principal
+        - **FCP** (First Contentful Paint): Tiempo de primera pintura
+        - **CLS** (Cumulative Layout Shift): Cambios de layout acumulados
+        
+        ## Performance Score
+        
+        Score de 0-100 basado en métricas de PageSpeed Insights de Google.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url, strategy]
+              properties:
+                url: 
+                  type: string
+                  format: uri
+                  description: "URL to audit"
+                  example: "https://www.empresa.com"
+                strategy: 
+                  type: string
+                  enum: [mobile, desktop]
+                  description: "Audit strategy"
+                  example: "desktop"
+            examples:
+              desktop_audit:
+                summary: "Desktop audit"
+                value:
+                  url: "https://www.empresa.com"
+                  strategy: "desktop"
+              mobile_audit:
+                summary: "Mobile audit"
+                value:
+                  url: "https://www.empresa.com"
+                  strategy: "mobile"
+      responses:
+        "200":
+          description: Audit completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  performance_score: 
+                    type: number
+                    minimum: 0
+                    maximum: 100
+                    description: "Overall performance score"
+                    example: 85
+                  core_web_vitals:
+                    type: object
+                    properties:
+                      lcp: 
+                        type: number
+                        description: "Largest Contentful Paint (seconds)"
+                        example: 2.5
+                      fcp: 
+                        type: number
+                        description: "First Contentful Paint (seconds)"
+                        example: 1.2
+                      cls: 
+                        type: number
+                        description: "Cumulative Layout Shift"
+                        example: 0.1
+              examples:
+                good_performance:
+                  summary: "Good performance"
+                  value:
+                    performance_score: 85
+                    core_web_vitals:
+                      lcp: 2.5
+                      fcp: 1.2
+                      cls: 0.1
+                poor_performance:
+                  summary: "Poor performance"
+                  value:
+                    performance_score: 45
+                    core_web_vitals:
+                      lcp: 5.2
+                      fcp: 3.1
+                      cls: 0.3
+        "400": 
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Invalid request data"
+                  details: 
+                    type: array
+                    items:
+                      type: object
+              examples:
+                invalid_url:
+                  summary: "Invalid URL"
+                  value:
+                    error: "Invalid request data"
+                    details:
+                      - field: "url"
+                        message: "Invalid URL format"
+                invalid_strategy:
+                  summary: "Invalid strategy"
+                  value:
+                    error: "Invalid request data"
+                    details:
+                      - field: "strategy"
+                        message: "Strategy must be mobile or desktop"
+        "401": 
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Unauthorized"
+        "500": 
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Internal server error"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Bearer token authentication. Supports both API Key and OAuth JWT tokens.
+        
+        ## API Key Mode
+        
+        Usa tu API Key de GPT Actions:
+        ```
+        Authorization: Bearer your_gpt_actions_api_key
+        ```
+        
+        ## OAuth Mode
+        
+        Usa JWT token del flujo OAuth:
+        ```
+        Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+        ```
+        
+        ## OAuth Flow
+        
+        1. **Authorization**: Usuario autoriza en OpenAI
+        2. **Token Exchange**: OpenAI obtiene JWT token
+        3. **API Calls**: OpenAI usa JWT para requests
+        4. **User Info**: Acceso a información del usuario
+        
+        ## Scopes
+        
+        - **openid**: Identificación básica
+        - **email**: Acceso al email del usuario
+        - **profile**: Acceso al perfil del usuario

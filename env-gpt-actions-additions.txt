@@ -1,0 +1,59 @@
+# =============================================================================
+# 🏢 GPT ACTIONS OAUTH CONFIGURATION - VARIABLES ADICIONALES
+# =============================================================================
+# Agregar estas variables a tu .env.local para GPT Actions OAuth
+# =============================================================================
+
+# OAuth Provider Configuration
+OAUTH_ISSUER=https://auditoria.fascinantedigital.com
+OAUTH_AUDIENCE=https://auditoria.fascinantedigital.com
+OAUTH_CLIENT_ID=your_openai_client_id_here
+OAUTH_CLIENT_SECRET=your_openai_client_secret_here
+OAUTH_REDIRECT_URI=https://platform.openai.com/oauth/callback
+OAUTH_SCOPES=openid email profile
+
+# JWT Configuration
+JWT_PRIVATE_KEY=your_rsa_private_key_here
+JWT_PUBLIC_KEY=your_rsa_public_key_here
+JWT_KID=your_key_id_here
+JWT_ALGORITHM=RS256
+JWT_EXPIRES_IN=3600
+JWT_REFRESH_EXPIRES_IN=86400
+
+# PKCE Configuration
+PKCE_CODE_CHALLENGE_METHOD=S256
+PKCE_CODE_VERIFIER_LENGTH=128
+
+# GPT Actions Specific
+GPT_ACTIONS_API_KEY=your_gpt_actions_api_key_here
+GPT_ACTIONS_RATE_LIMIT=100
+
+# Internal Gateway Configuration
+GATEWAY_INTERNAL_KEY=your_internal_gateway_key_here
+AUDITORIA_BASE_URL=https://auditoria.fascinantedigital.com
+
+# IP Hashing for Privacy
+IP_SALT=your_ip_salt_here
+
+# =============================================================================
+# 📚 INSTRUCCIONES DE CONFIGURACIÓN
+# =============================================================================
+# 
+# 1. OAuth Provider Configuration:
+#    - OAUTH_CLIENT_ID: Obtén de OpenAI Platform
+#    - OAUTH_CLIENT_SECRET: Obtén de OpenAI Platform
+#    - OAUTH_REDIRECT_URI: Configura en OpenAI Platform
+# 
+# 2. JWT Configuration:
+#    - JWT_PRIVATE_KEY: Genera clave RSA privada
+#    - JWT_PUBLIC_KEY: Genera clave RSA pública
+#    - JWT_KID: ID único para la clave
+# 
+# 3. GPT Actions:
+#    - GPT_ACTIONS_API_KEY: API Key para modo simple
+#    - GATEWAY_INTERNAL_KEY: Key para comunicación interna
+# 
+# 4. Security:
+#    - IP_SALT: Salt para hashing de IPs
+# 
+# =============================================================================
