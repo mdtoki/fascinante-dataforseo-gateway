@@ -1,0 +1,502 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fascinante Digital - API Gateway Optimizado para ChatGPT",
+    "description": "🚀 FASCINANTE DIGITAL - API Gateway optimizado para ChatGPT con respuestas ligeras y específicas. Incluye análisis de rendimiento, SEO on-page, SERP, y tecnologías de dominio. Todas las respuestas están optimizadas para evitar errores de tamaño en ChatGPT.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://auditoria.fascinantedigital.com",
+      "description": "Fascinante Digital API Gateway - Producción"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API Key para autenticación. Obtén tu clave en el dashboard de Fascinante Digital."
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Código de error HTTP"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "description": "Datos de respuesta"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health Check - Fascinante Digital",
+        "description": "🏥 FASCINANTE DIGITAL - Verifica el estado del API Gateway y servicios conectados.",
+        "operationId": "fascinante_digital_health_check",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente"
+          }
+        }
+      }
+    },
+    "/api/v1/pagespeed/summary": {
+      "post": {
+        "summary": "Resumen PageSpeed Optimizado - Fascinante Digital",
+        "description": "🚀 FASCINANTE DIGITAL - Resumen optimizado de PageSpeed Insights con solo datos esenciales. Incluye scores principales, Core Web Vitals, y top 5 oportunidades. Respuesta ligera para ChatGPT. ✅ OPTIMIZADO PARA CHATGPT.",
+        "operationId": "fascinante_digital_pagespeed_summary",
+        "tags": ["PageSpeed Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.fascinantedigital.com"
+                  },
+                  "strategy": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile"],
+                    "default": "desktop",
+                    "description": "Estrategia de análisis: desktop o mobile"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL y estrategia de análisis. Respuesta optimizada para ChatGPT."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resumen PageSpeed exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "description": "URL analizada"
+                    },
+                    "strategy": {
+                      "type": "string",
+                      "description": "Estrategia utilizada"
+                    },
+                    "scores": {
+                      "type": "object",
+                      "properties": {
+                        "performance": {
+                          "type": "integer",
+                          "description": "Score de rendimiento (0-100)"
+                        },
+                        "accessibility": {
+                          "type": "integer",
+                          "description": "Score de accesibilidad (0-100)"
+                        },
+                        "best_practices": {
+                          "type": "integer",
+                          "description": "Score de mejores prácticas (0-100)"
+                        },
+                        "seo": {
+                          "type": "integer",
+                          "description": "Score de SEO (0-100)"
+                        }
+                      }
+                    },
+                    "core_web_vitals": {
+                      "type": "object",
+                      "properties": {
+                        "lcp": {
+                          "type": "string",
+                          "description": "Largest Contentful Paint"
+                        },
+                        "fcp": {
+                          "type": "string",
+                          "description": "First Contentful Paint"
+                        },
+                        "cls": {
+                          "type": "string",
+                          "description": "Cumulative Layout Shift"
+                        },
+                        "fid": {
+                          "type": "string",
+                          "description": "First Input Delay"
+                        }
+                      }
+                    },
+                    "opportunities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "Título de la oportunidad"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Descripción de la oportunidad"
+                          },
+                          "score": {
+                            "type": "integer",
+                            "description": "Score de la oportunidad (0-100)"
+                          },
+                          "savings": {
+                            "type": "integer",
+                            "description": "Ahorro potencial en ms"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pagespeed/core-web-vitals": {
+      "post": {
+        "summary": "Core Web Vitals Detallado - Fascinante Digital",
+        "description": "📊 FASCINANTE DIGITAL - Análisis detallado de Core Web Vitals con scores y recomendaciones específicas. Respuesta ligera y enfocada solo en métricas esenciales. ✅ OPTIMIZADO PARA CHATGPT.",
+        "operationId": "fascinante_digital_core_web_vitals",
+        "tags": ["PageSpeed Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.fascinantedigital.com"
+                  },
+                  "strategy": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile"],
+                    "default": "desktop",
+                    "description": "Estrategia de análisis: desktop o mobile"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL y estrategia para análisis de Core Web Vitals."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis Core Web Vitals exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "description": "URL analizada"
+                    },
+                    "strategy": {
+                      "type": "string",
+                      "description": "Estrategia utilizada"
+                    },
+                    "performance_score": {
+                      "type": "integer",
+                      "description": "Score general de rendimiento (0-100)"
+                    },
+                    "core_web_vitals": {
+                      "type": "object",
+                      "properties": {
+                        "lcp": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string",
+                              "description": "Valor de LCP"
+                            },
+                            "score": {
+                              "type": "number",
+                              "description": "Score de LCP (0-1)"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": ["Good", "Needs Improvement", "Poor"],
+                              "description": "Estado de LCP"
+                            }
+                          }
+                        },
+                        "fcp": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string",
+                              "description": "Valor de FCP"
+                            },
+                            "score": {
+                              "type": "number",
+                              "description": "Score de FCP (0-1)"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": ["Good", "Needs Improvement", "Poor"],
+                              "description": "Estado de FCP"
+                            }
+                          }
+                        },
+                        "cls": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string",
+                              "description": "Valor de CLS"
+                            },
+                            "score": {
+                              "type": "number",
+                              "description": "Score de CLS (0-1)"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": ["Good", "Needs Improvement", "Poor"],
+                              "description": "Estado de CLS"
+                            }
+                          }
+                        },
+                        "fid": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string",
+                              "description": "Valor de FID"
+                            },
+                            "score": {
+                              "type": "number",
+                              "description": "Score de FID (0-1)"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": ["Good", "Needs Improvement", "Poor"],
+                              "description": "Estado de FID"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "recommendations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "metric": {
+                            "type": "string",
+                            "description": "Métrica relacionada"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "Título de la recomendación"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Descripción de la recomendación"
+                          },
+                          "score": {
+                            "type": "integer",
+                            "description": "Score de la recomendación (0-100)"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/on_page/instant_pages": {
+      "post": {
+        "summary": "Análisis On-Page Instantáneo - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis instantáneo de páginas web para SEO. Obtiene datos detallados sobre optimización, rendimiento, estructura HTML, y métricas de SEO de cualquier URL. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_on_page_instant_pages",
+        "tags": ["On-Page Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.fascinantedigital.com"
+                  },
+                  "enable_javascript": {
+                    "type": "boolean",
+                    "description": "Habilitar renderizado JavaScript para análisis completo",
+                    "default": true
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL a analizar. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis on-page exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/serp/google/organic/live/advanced": {
+      "post": {
+        "summary": "SERP Google Orgánico Avanzado - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis avanzado de resultados orgánicos de Google. Obtiene datos detallados de SERP incluyendo posiciones, snippets, características SERP, y métricas de competencia. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_serp_google_organic_advanced",
+        "tags": ["SERP Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "Palabra clave a buscar",
+                    "example": "seo tools"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "device": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile", "tablet"],
+                    "default": "desktop",
+                    "description": "Tipo de dispositivo"
+                  },
+                  "depth": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Profundidad de resultados a obtener"
+                  }
+                },
+                "required": ["keyword"],
+                "description": "Objeto con parámetros de búsqueda SERP. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis SERP exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/domain_analytics/technologies/domain_technologies/live": {
+      "post": {
+        "summary": "Tecnologías de Dominio - Fascinante Digital",
+        "description": "🛠️ FASCINANTE DIGITAL - Análisis de tecnologías utilizadas por un dominio. Identifica CMS, frameworks, servidores, herramientas de analytics y tecnologías web. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_domain_technologies",
+        "tags": ["Domain Analytics"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "Dominio a analizar",
+                    "example": "fascinantedigital.com"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Número máximo de tecnologías a retornar"
+                  }
+                },
+                "required": ["target"],
+                "description": "Objeto con parámetros de análisis de tecnologías. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de tecnologías exitoso"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "🏥 Endpoints del sistema y monitoreo - Fascinante Digital"
+    },
+    {
+      "name": "PageSpeed Analysis",
+      "description": "🚀 Análisis de rendimiento web optimizado para ChatGPT - Fascinante Digital"
+    },
+    {
+      "name": "On-Page Analysis",
+      "description": "🔍 Análisis on-page y optimización SEO - Fascinante Digital"
+    },
+    {
+      "name": "SERP Analysis",
+      "description": "🔍 Análisis de resultados de búsqueda (SERP) - Fascinante Digital"
+    },
+    {
+      "name": "Domain Analytics",
+      "description": "🛠️ Análisis de tecnologías y métricas de dominio - Fascinante Digital"
+    }
+  ]
+}

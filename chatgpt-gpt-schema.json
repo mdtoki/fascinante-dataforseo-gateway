@@ -1,0 +1,505 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fascinante Digital - DataForSEO API Gateway",
+    "description": "🚀 FASCINANTE DIGITAL - API Gateway PRO ELITE para DataForSEO con Next.js 15. Acceso escalable y seguro a herramientas de SEO y análisis de datos. Incluye análisis SERP, investigación de keywords, análisis de backlinks, y más funcionalidades avanzadas de SEO. Desarrollado por el equipo de Fascinante Digital para análisis de mercado y estrategias de posicionamiento.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://auditoria.fascinantedigital.com",
+      "description": "Fascinante Digital API Gateway - Producción"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API Key para autenticación. Obtén tu clave en el dashboard de Fascinante Digital."
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Código de error HTTP"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "description": "Datos de respuesta"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health Check - Fascinante Digital",
+        "description": "🏥 FASCINANTE DIGITAL - Verifica el estado del API Gateway y servicios conectados. Monitorea la salud del sistema, cache, analytics y conectividad con DataForSEO.",
+        "operationId": "fascinante_digital_health_check",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    },
+                    "services": {
+                      "type": "object",
+                      "properties": {
+                        "api": {
+                          "type": "string",
+                          "example": "running"
+                        },
+                        "cache": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "analytics": {
+                          "type": "string",
+                          "example": "active"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/serp/{search_engine}/organic/live/advanced": {
+      "post": {
+        "summary": "Análisis SERP Orgánico - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis SERP orgánico completo para investigación de mercado y SEO. Obtiene resultados de búsqueda orgánicos para una palabra clave en el motor de búsqueda especificado. Incluye AI Overview, People Also Ask, Featured Snippets, y elementos SERP completos.",
+        "operationId": "fascinante_digital_serp_organic_live_advanced",
+        "tags": ["SERP Analysis - Fascinante Digital"],
+        "parameters": [
+          {
+            "name": "search_engine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["google", "bing", "yahoo"],
+              "description": "Motor de búsqueda: google, bing, o yahoo"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "keyword": {
+                      "type": "string",
+                      "description": "Palabra clave a buscar",
+                      "example": "SEO tools"
+                    },
+                    "location_name": {
+                      "type": "string",
+                      "default": "United States",
+                      "description": "Ubicación completa (país, región, ciudad)",
+                      "example": "United States"
+                    },
+                    "language_code": {
+                      "type": "string",
+                      "description": "Código de idioma del motor de búsqueda",
+                      "example": "en"
+                    },
+                    "depth": {
+                      "type": "number",
+                      "minimum": 10,
+                      "maximum": 700,
+                      "default": 10,
+                      "description": "Profundidad de análisis (número de resultados)"
+                    },
+                    "device": {
+                      "type": "string",
+                      "enum": ["desktop", "mobile"],
+                      "default": "desktop",
+                      "description": "Tipo de dispositivo"
+                    },
+                    "max_crawl_pages": {
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 7,
+                      "default": 1,
+                      "description": "Número máximo de páginas a analizar"
+                    }
+                  },
+                  "required": ["keyword", "language_code"]
+                },
+                "description": "Array de tareas SERP. DataForSEO requiere un array de objetos, cada uno representando una tarea de análisis SERP."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resultados SERP exitosos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string"
+                    },
+                    "status_code": {
+                      "type": "number"
+                    },
+                    "status_message": {
+                      "type": "string"
+                    },
+                    "time": {
+                      "type": "string"
+                    },
+                    "cost": {
+                      "type": "number"
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "result": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "description": "Elementos SERP incluyendo orgánicos, AI Overview, People Also Ask, etc."
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/keywords_data/google_ads/search_volume/live": {
+      "post": {
+        "summary": "Volumen de Búsqueda de Keywords",
+        "description": "Obtiene datos de volumen de búsqueda para palabras clave desde Google Ads",
+        "operationId": "keywords_data_google_ads_search_volume",
+        "tags": ["Keyword Research"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "keywords": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Array de palabras clave para obtener volumen de búsqueda",
+                      "example": ["SEO tools", "keyword research", "backlink analysis"]
+                    },
+                    "location_name": {
+                      "type": "string",
+                      "default": "United States",
+                      "description": "Ubicación en formato 'País'",
+                      "example": "United States"
+                    },
+                    "language_code": {
+                      "type": "string",
+                      "default": "en",
+                      "description": "Código de idioma ISO de dos letras",
+                      "example": "en"
+                    }
+                  },
+                  "required": ["keywords"]
+                },
+                "description": "Array de tareas de volumen de búsqueda. DataForSEO requiere un array de objetos."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Datos de volumen de búsqueda exitosos"
+          }
+        }
+      }
+    },
+    "/api/v3/dataforseo_labs/google/keyword_ideas/live": {
+      "post": {
+        "summary": "Ideas de Keywords",
+        "description": "Proporciona términos de búsqueda relevantes para las categorías de productos o servicios de las palabras clave especificadas",
+        "operationId": "dataforseo_labs_google_keyword_ideas",
+        "tags": ["Keyword Research"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "keywords": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Palabras clave objetivo (máximo 5)",
+                      "example": ["SEO", "digital marketing"]
+                    },
+                    "location_name": {
+                      "type": "string",
+                      "default": "United States",
+                      "description": "Ubicación en formato 'País'"
+                    },
+                    "language_code": {
+                      "type": "string",
+                      "default": "en",
+                      "description": "Código de idioma"
+                    },
+                    "limit": {
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 1000,
+                      "default": 10,
+                      "description": "Número máximo de keywords a retornar"
+                    }
+                  },
+                  "required": ["keywords"]
+                },
+                "description": "Array de tareas de ideas de keywords. DataForSEO requiere un array de objetos."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ideas de keywords exitosas"
+          }
+        }
+      }
+    },
+    "/api/v3/backlinks/summary/live": {
+      "post": {
+        "summary": "Resumen de Backlinks",
+        "description": "Proporciona un resumen de datos de backlinks disponibles para un dominio, subdominio o página web especificada",
+        "operationId": "backlinks_summary",
+        "tags": ["Backlink Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "target": {
+                      "type": "string",
+                      "description": "Dominio, subdominio o página web para obtener backlinks",
+                      "example": "example.com"
+                    },
+                    "include_subdomains": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Incluir enlaces indirectos al objetivo"
+                    },
+                    "exclude_internal_backlinks": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Excluir backlinks internos de subdominios"
+                    }
+                  },
+                  "required": ["target"]
+                },
+                "description": "Array de tareas de análisis de backlinks. DataForSEO requiere un array de objetos."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resumen de backlinks exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/dataforseo_labs/google/domain_rank_overview/live": {
+      "post": {
+        "summary": "Resumen de Ranking de Dominio",
+        "description": "Proporciona datos de ranking y tráfico de búsqueda orgánica y pagada para el dominio especificado",
+        "operationId": "dataforseo_labs_google_domain_rank_overview",
+        "tags": ["Domain Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "target": {
+                      "type": "string",
+                      "description": "Dominio objetivo",
+                      "example": "example.com"
+                    },
+                    "location_name": {
+                      "type": "string",
+                      "default": "United States",
+                      "description": "Ubicación en formato 'País'"
+                    },
+                    "language_code": {
+                      "type": "string",
+                      "default": "en",
+                      "description": "Código de idioma"
+                    },
+                    "ignore_synonyms": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Ignorar keywords altamente similares"
+                    }
+                  },
+                  "required": ["target"]
+                },
+                "description": "Array de tareas de análisis de dominio. DataForSEO requiere un array de objetos."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resumen de ranking de dominio exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/on_page/instant_pages": {
+      "post": {
+        "summary": "Análisis Instantáneo de Páginas",
+        "description": "Obtiene datos específicos de página con información detallada sobre qué tan bien está optimizada una página particular para búsqueda orgánica",
+        "operationId": "on_page_instant_pages",
+        "tags": ["On-Page Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "description": "URL a analizar",
+                      "example": "https://example.com"
+                    },
+                    "enable_javascript": {
+                      "type": "boolean",
+                      "description": "Habilitar renderizado JavaScript"
+                    },
+                    "custom_user_agent": {
+                      "type": "string",
+                      "description": "User-Agent personalizado"
+                    },
+                    "accept_language": {
+                      "type": "string",
+                      "description": "Header de idioma para acceder al sitio web"
+                    }
+                  },
+                  "required": ["url"]
+                },
+                "description": "Array de tareas de análisis on-page. DataForSEO requiere un array de objetos."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de página exitoso"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "🏥 Endpoints del sistema y monitoreo - Fascinante Digital"
+    },
+    {
+      "name": "SERP Analysis - Fascinante Digital",
+      "description": "🔍 Análisis de resultados de búsqueda (SERP) - Fascinante Digital"
+    },
+    {
+      "name": "Keyword Research",
+      "description": "🔑 Investigación y análisis de palabras clave - Fascinante Digital"
+    },
+    {
+      "name": "Backlink Analysis",
+      "description": "🔗 Análisis de backlinks y enlaces - Fascinante Digital"
+    },
+    {
+      "name": "Domain Analysis",
+      "description": "🌐 Análisis de dominios y competidores - Fascinante Digital"
+    },
+    {
+      "name": "On-Page Analysis",
+      "description": "📄 Análisis on-page y optimización - Fascinante Digital"
+    }
+  ]
+}

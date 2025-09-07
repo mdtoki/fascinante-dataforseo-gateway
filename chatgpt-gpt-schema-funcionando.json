@@ -1,0 +1,495 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fascinante Digital - DataForSEO API Gateway (Endpoints Verificados)",
+    "description": "🚀 FASCINANTE DIGITAL - API Gateway con endpoints 100% funcionales y probados. Incluye análisis on-page, PageSpeed Insights, SERP Google, y tecnologías de dominio. Todos los endpoints han sido probados en producción y funcionan perfectamente.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://auditoria.fascinantedigital.com",
+      "description": "Fascinante Digital API Gateway - Producción"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API Key para autenticación. Obtén tu clave en el dashboard de Fascinante Digital."
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Código de error HTTP"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "description": "Datos de respuesta"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health Check - Fascinante Digital",
+        "description": "🏥 FASCINANTE DIGITAL - Verifica el estado del API Gateway y servicios conectados.",
+        "operationId": "fascinante_digital_health_check",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    },
+                    "services": {
+                      "type": "object",
+                      "properties": {
+                        "api": {
+                          "type": "string",
+                          "example": "running"
+                        },
+                        "cache": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "analytics": {
+                          "type": "string",
+                          "example": "active"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pagespeed": {
+      "post": {
+        "summary": "Análisis PageSpeed Insights - Fascinante Digital",
+        "description": "🚀 FASCINANTE DIGITAL - Análisis completo de rendimiento web con Google PageSpeed Insights. Obtiene métricas de Core Web Vitals, rendimiento, accesibilidad, SEO y mejores prácticas. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_pagespeed_insights",
+        "tags": ["PageSpeed Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.google.com"
+                  },
+                  "strategy": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile"],
+                    "default": "desktop",
+                    "description": "Estrategia de análisis: desktop o mobile"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["performance", "accessibility", "best-practices", "seo", "pwa"],
+                    "default": "performance",
+                    "description": "Categoría de análisis"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL y parámetros de análisis de PageSpeed Insights."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis PageSpeed exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "lighthouseResult": {
+                      "type": "object",
+                      "properties": {
+                        "categories": {
+                          "type": "object",
+                          "properties": {
+                            "performance": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number",
+                                  "description": "Puntuación de rendimiento (0-1)"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/on_page/instant_pages": {
+      "post": {
+        "summary": "Análisis On-Page Instantáneo - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis instantáneo de páginas web para SEO. Obtiene datos detallados sobre optimización, rendimiento, estructura HTML, y métricas de SEO de cualquier URL. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_on_page_instant_pages",
+        "tags": ["On-Page Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.google.com"
+                  },
+                  "enable_javascript": {
+                    "type": "boolean",
+                    "description": "Habilitar renderizado JavaScript para análisis completo",
+                    "default": true
+                  },
+                  "custom_user_agent": {
+                    "type": "string",
+                    "description": "User-Agent personalizado para el análisis"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL a analizar. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis on-page exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer",
+                      "description": "Código de estado de la respuesta"
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "result": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "onpage_score": {
+                                        "type": "number",
+                                        "description": "Puntuación SEO on-page (0-100)"
+                                      },
+                                      "meta": {
+                                        "type": "object",
+                                        "properties": {
+                                          "title": {
+                                            "type": "string",
+                                            "description": "Título de la página"
+                                          },
+                                          "description": {
+                                            "type": "string",
+                                            "description": "Meta descripción"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/serp/google/organic/live/advanced": {
+      "post": {
+        "summary": "SERP Google Orgánico Avanzado - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis avanzado de resultados orgánicos de Google. Obtiene datos detallados de SERP incluyendo posiciones, snippets, características SERP, y métricas de competencia. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_serp_google_organic_advanced",
+        "tags": ["SERP Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "Palabra clave a buscar",
+                    "example": "seo tools"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "device": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile", "tablet"],
+                    "default": "desktop",
+                    "description": "Tipo de dispositivo"
+                  },
+                  "depth": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Profundidad de resultados a obtener"
+                  }
+                },
+                "required": ["keyword"],
+                "description": "Objeto con parámetros de búsqueda SERP. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis SERP exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer",
+                      "description": "Código de estado de la respuesta"
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "result": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "rank_group": {
+                                        "type": "integer",
+                                        "description": "Grupo de ranking"
+                                      },
+                                      "rank_absolute": {
+                                        "type": "integer",
+                                        "description": "Posición absoluta"
+                                      },
+                                      "title": {
+                                        "type": "string",
+                                        "description": "Título del resultado"
+                                      },
+                                      "url": {
+                                        "type": "string",
+                                        "description": "URL del resultado"
+                                      },
+                                      "snippet": {
+                                        "type": "string",
+                                        "description": "Snippet del resultado"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/domain_analytics/technologies/domain_technologies/live": {
+      "post": {
+        "summary": "Tecnologías de Dominio - Fascinante Digital",
+        "description": "🛠️ FASCINANTE DIGITAL - Análisis de tecnologías utilizadas por un dominio. Identifica CMS, frameworks, servidores, herramientas de analytics y tecnologías web. ✅ PROBADO Y FUNCIONANDO.",
+        "operationId": "fascinante_digital_domain_technologies",
+        "tags": ["Domain Analytics"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "Dominio a analizar",
+                    "example": "google.com"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Número máximo de tecnologías a retornar"
+                  }
+                },
+                "required": ["target"],
+                "description": "Objeto con parámetros de análisis de tecnologías. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de tecnologías exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer",
+                      "description": "Código de estado de la respuesta"
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "result": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "technology": {
+                                        "type": "string",
+                                        "description": "Nombre de la tecnología"
+                                      },
+                                      "category": {
+                                        "type": "string",
+                                        "description": "Categoría de la tecnología"
+                                      },
+                                      "description": {
+                                        "type": "string",
+                                        "description": "Descripción de la tecnología"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "🏥 Endpoints del sistema y monitoreo - Fascinante Digital"
+    },
+    {
+      "name": "PageSpeed Analysis",
+      "description": "🚀 Análisis de rendimiento web con Google PageSpeed Insights - Fascinante Digital"
+    },
+    {
+      "name": "On-Page Analysis",
+      "description": "🔍 Análisis on-page y optimización SEO - Fascinante Digital"
+    },
+    {
+      "name": "SERP Analysis",
+      "description": "🔍 Análisis de resultados de búsqueda (SERP) - Fascinante Digital"
+    },
+    {
+      "name": "Domain Analytics",
+      "description": "🛠️ Análisis de tecnologías y métricas de dominio - Fascinante Digital"
+    }
+  ]
+}

@@ -89,7 +89,7 @@ class MetaBusinessManager {
     }
 
     try {
-      const url = `https://graph.facebook.com/v18.0/${this.metaConfig.businessId || 'me'}`;
+      const url = `https://graph.facebook.com/v20.0/${this.metaConfig.businessId || 'me'}`;
       const params = new URLSearchParams({
         access_token: this.metaConfig.accessToken,
         fields: 'id,name,primary_page,timezone_id,created_time,updated_time'
@@ -117,7 +117,7 @@ class MetaBusinessManager {
     console.log('📊 OBTENIENDO CUENTAS PUBLICITARIAS...');
     
     try {
-      const url = `https://graph.facebook.com/v18.0/${this.metaConfig.businessId || 'me'}/adaccounts`;
+      const url = `https://graph.facebook.com/v20.0/${this.metaConfig.businessId || 'me'}/adaccounts`;
       const params = new URLSearchParams({
         access_token: this.metaConfig.accessToken,
         fields: 'id,name,account_status,currency,timezone_name,amount_spent,balance,created_time'
@@ -145,7 +145,7 @@ class MetaBusinessManager {
     console.log('📄 OBTENIENDO PÁGINAS DE FACEBOOK...');
     
     try {
-      const url = 'https://graph.facebook.com/v18.0/me/accounts';
+      const url = 'https://graph.facebook.com/v20.0/me/accounts';
       const params = new URLSearchParams({
         access_token: this.metaConfig.accessToken,
         fields: 'id,name,category,fan_count,access_token,instagram_business_account'
@@ -178,7 +178,7 @@ class MetaBusinessManager {
 
       for (const page of pages.data || []) {
         if (page.instagram_business_account) {
-          const url = `https://graph.facebook.com/v18.0/${page.instagram_business_account.id}`;
+          const url = `https://graph.facebook.com/v20.0/${page.instagram_business_account.id}`;
           const params = new URLSearchParams({
             access_token: this.metaConfig.accessToken,
             fields: 'id,username,name,profile_picture_url,followers_count,follows_count,media_count'
@@ -217,7 +217,7 @@ class MetaBusinessManager {
     }
 
     try {
-      const url = `https://graph.facebook.com/v18.0/${accountId}/campaigns`;
+      const url = `https://graph.facebook.com/v20.0/${accountId}/campaigns`;
       const params = new URLSearchParams({
         access_token: this.metaConfig.accessToken,
         fields: 'id,name,status,objective,created_time,updated_time,start_time,end_time,daily_budget,lifetime_budget'
@@ -245,7 +245,7 @@ class MetaBusinessManager {
     console.log(`📈 OBTENIENDO INSIGHTS DE CAMPAÑA: ${campaignId}...`);
     
     try {
-      const url = `https://graph.facebook.com/v18.0/${campaignId}/insights`;
+      const url = `https://graph.facebook.com/v20.0/${campaignId}/insights`;
       const params = new URLSearchParams({
         access_token: this.metaConfig.accessToken,
         fields: 'impressions,clicks,spend,reach,frequency,cpm,cpc,ctr,cpp,actions',
@@ -279,7 +279,7 @@ class MetaBusinessManager {
     }
 
     try {
-      const url = `https://graph.facebook.com/v18.0/${accountId}/campaigns`;
+      const url = `https://graph.facebook.com/v20.0/${accountId}/campaigns`;
       const params = new URLSearchParams({
         access_token: this.metaConfig.accessToken,
         name: campaignData.name,
@@ -389,7 +389,7 @@ META_PAGE_ID=your_page_id_here
 META_INSTAGRAM_ACCOUNT_ID=your_instagram_account_id_here
 
 # Meta API Configuration
-META_API_VERSION=v18.0
+META_API_VERSION=v20.0
 META_GRAPH_API_URL=https://graph.facebook.com
 `;
 

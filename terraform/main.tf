@@ -36,7 +36,7 @@ locals {
     auditoria = {
       name    = "auditoria"
       type    = "CNAME"
-      content = "fascinante-dataforseo-gateway-i6sp4p4f9-alexanderoviedo.vercel.app"  # CNAME a Vercel
+      content = "sistema-4bo95edrr-alexanderoviedo.vercel.app"  # CNAME a Vercel
       ttl     = 1
       proxied = true
     }

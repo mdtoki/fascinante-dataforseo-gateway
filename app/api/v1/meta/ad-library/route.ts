@@ -12,7 +12,7 @@ import { getClientIP } from '@/lib/utils';
  */
 
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
-const META_GRAPH_API_URL = 'https://graph.facebook.com/v18.0';
+const META_GRAPH_API_URL = 'https://graph.facebook.com/v20.0';
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now();

@@ -1,0 +1,747 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fascinante Digital - DataForSEO API Gateway Completo",
+    "description": "🚀 FASCINANTE DIGITAL - API Gateway completo para todas las herramientas de SEO y análisis web. Incluye SERP, Keywords, Backlinks, On-Page, Domain Analytics, Business Data, App Data, Merchant Data, y más. Acceso escalable y seguro a todas las herramientas de DataForSEO.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://auditoria.fascinantedigital.com",
+      "description": "Fascinante Digital API Gateway - Producción"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API Key para autenticación. Obtén tu clave en el dashboard de Fascinante Digital."
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Código de error HTTP"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "description": "Datos de respuesta"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health Check - Fascinante Digital",
+        "description": "🏥 FASCINANTE DIGITAL - Verifica el estado del API Gateway y servicios conectados.",
+        "operationId": "fascinante_digital_health_check",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    },
+                    "services": {
+                      "type": "object",
+                      "properties": {
+                        "api": {
+                          "type": "string",
+                          "example": "running"
+                        },
+                        "cache": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "analytics": {
+                          "type": "string",
+                          "example": "active"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pagespeed": {
+      "post": {
+        "summary": "Análisis PageSpeed Insights - Fascinante Digital",
+        "description": "🚀 FASCINANTE DIGITAL - Análisis completo de rendimiento web con Google PageSpeed Insights. Obtiene métricas de Core Web Vitals, rendimiento, accesibilidad, SEO y mejores prácticas.",
+        "operationId": "fascinante_digital_pagespeed_insights",
+        "tags": ["PageSpeed Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.google.com"
+                  },
+                  "strategy": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile"],
+                    "default": "desktop",
+                    "description": "Estrategia de análisis: desktop o mobile"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["performance", "accessibility", "best-practices", "seo", "pwa"],
+                    "default": "performance",
+                    "description": "Categoría de análisis"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL y parámetros de análisis de PageSpeed Insights."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis PageSpeed exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/serp/google/organic/live/advanced": {
+      "post": {
+        "summary": "SERP Google Orgánico Avanzado - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis avanzado de resultados orgánicos de Google. Obtiene datos detallados de SERP incluyendo posiciones, snippets, características SERP, y métricas de competencia.",
+        "operationId": "fascinante_digital_serp_google_organic_advanced",
+        "tags": ["SERP Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "Palabra clave a buscar",
+                    "example": "seo tools"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "device": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile", "tablet"],
+                    "default": "desktop",
+                    "description": "Tipo de dispositivo"
+                  },
+                  "depth": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Profundidad de resultados a obtener"
+                  }
+                },
+                "required": ["keyword"],
+                "description": "Objeto con parámetros de búsqueda SERP. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis SERP exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/keywords_data/google/keyword_ideas/live": {
+      "post": {
+        "summary": "Ideas de Keywords Google - Fascinante Digital",
+        "description": "💡 FASCINANTE DIGITAL - Genera ideas de keywords basadas en palabras clave semilla. Obtiene sugerencias de keywords, volumen de búsqueda, competencia y métricas relacionadas.",
+        "operationId": "fascinante_digital_keyword_ideas",
+        "tags": ["Keyword Research"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "Palabra clave semilla",
+                    "example": "seo tools"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Número máximo de keywords a retornar"
+                  }
+                },
+                "required": ["keyword"],
+                "description": "Objeto con parámetros de investigación de keywords. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ideas de keywords exitosas"
+          }
+        }
+      }
+    },
+    "/api/v3/keywords_data/google/search_volume/live": {
+      "post": {
+        "summary": "Volumen de Búsqueda Google - Fascinante Digital",
+        "description": "📊 FASCINANTE DIGITAL - Obtiene datos de volumen de búsqueda para keywords específicas. Incluye métricas de volumen mensual, competencia, CPC y tendencias.",
+        "operationId": "fascinante_digital_search_volume",
+        "tags": ["Keyword Research"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keywords": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Lista de keywords para analizar",
+                    "example": ["seo tools", "keyword research", "backlink analysis"]
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  }
+                },
+                "required": ["keywords"],
+                "description": "Objeto con keywords para análisis de volumen. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Datos de volumen de búsqueda exitosos"
+          }
+        }
+      }
+    },
+    "/api/v3/backlinks/summary/live": {
+      "post": {
+        "summary": "Resumen de Backlinks - Fascinante Digital",
+        "description": "🔗 FASCINANTE DIGITAL - Análisis completo de perfil de backlinks. Obtiene métricas de autoridad de dominio, distribución de backlinks, dominios de referencia y análisis de competencia.",
+        "operationId": "fascinante_digital_backlinks_summary",
+        "tags": ["Backlink Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "Dominio o URL objetivo",
+                    "example": "example.com"
+                  },
+                  "internal_list_limit": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Límite de elementos internos"
+                  },
+                  "backlinks_status_type": {
+                    "type": "string",
+                    "enum": ["live", "lost", "both"],
+                    "default": "live",
+                    "description": "Tipo de estado de backlinks"
+                  }
+                },
+                "required": ["target"],
+                "description": "Objeto con parámetros de análisis de backlinks. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de backlinks exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/on_page/instant_pages": {
+      "post": {
+        "summary": "Análisis On-Page Instantáneo - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis instantáneo de páginas web para SEO. Obtiene datos detallados sobre optimización, rendimiento, estructura HTML, y métricas de SEO de cualquier URL.",
+        "operationId": "fascinante_digital_on_page_instant_pages",
+        "tags": ["On-Page Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.google.com"
+                  },
+                  "enable_javascript": {
+                    "type": "boolean",
+                    "description": "Habilitar renderizado JavaScript para análisis completo",
+                    "default": true
+                  },
+                  "custom_user_agent": {
+                    "type": "string",
+                    "description": "User-Agent personalizado para el análisis"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL a analizar. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis on-page exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/domain_analytics/technologies/domain_technologies/live": {
+      "post": {
+        "summary": "Tecnologías de Dominio - Fascinante Digital",
+        "description": "🛠️ FASCINANTE DIGITAL - Análisis de tecnologías utilizadas por un dominio. Identifica CMS, frameworks, servidores, herramientas de analytics y tecnologías web.",
+        "operationId": "fascinante_digital_domain_technologies",
+        "tags": ["Domain Analytics"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "Dominio a analizar",
+                    "example": "example.com"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Número máximo de tecnologías a retornar"
+                  }
+                },
+                "required": ["target"],
+                "description": "Objeto con parámetros de análisis de tecnologías. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de tecnologías exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/business_data/google/my_business_info/live": {
+      "post": {
+        "summary": "Google My Business Info - Fascinante Digital",
+        "description": "🏢 FASCINANTE DIGITAL - Información detallada de Google My Business. Obtiene datos de negocio, reseñas, horarios, ubicación y métricas de presencia local.",
+        "operationId": "fascinante_digital_google_my_business",
+        "tags": ["Business Data"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "business_id": {
+                    "type": "string",
+                    "description": "ID del negocio en Google My Business",
+                    "example": "0x89c25855c4d4c0d1:0x82f2a5ae3f4aab1e"
+                  },
+                  "language_code": {
+                    "type": "string",
+                    "default": "en",
+                    "description": "Código de idioma"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "New York, NY, USA"
+                  }
+                },
+                "required": ["business_id"],
+                "description": "Objeto con parámetros de Google My Business. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Información de Google My Business exitosa"
+          }
+        }
+      }
+    },
+    "/api/v3/app_data/google/app_searches/live": {
+      "post": {
+        "summary": "Búsqueda de Apps Google Play - Fascinante Digital",
+        "description": "📱 FASCINANTE DIGITAL - Búsqueda de aplicaciones en Google Play Store. Obtiene información de apps, ratings, reviews, descargas y métricas de la tienda.",
+        "operationId": "fascinante_digital_google_app_searches",
+        "tags": ["App Data"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Término de búsqueda de apps",
+                    "example": "photo editor"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 20,
+                    "description": "Número máximo de apps a retornar"
+                  }
+                },
+                "required": ["query"],
+                "description": "Objeto con parámetros de búsqueda de apps. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Búsqueda de apps exitosa"
+          }
+        }
+      }
+    },
+    "/api/v3/merchant/google/products/live": {
+      "post": {
+        "summary": "Productos Google Shopping - Fascinante Digital",
+        "description": "🛒 FASCINANTE DIGITAL - Búsqueda de productos en Google Shopping. Obtiene información de productos, precios, reviews, disponibilidad y métricas de comercio electrónico.",
+        "operationId": "fascinante_digital_google_products",
+        "tags": ["Merchant Data"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Término de búsqueda de productos",
+                    "example": "wireless headphones"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 20,
+                    "description": "Número máximo de productos a retornar"
+                  }
+                },
+                "required": ["query"],
+                "description": "Objeto con parámetros de búsqueda de productos. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Búsqueda de productos exitosa"
+          }
+        }
+      }
+    },
+    "/api/v3/dataforseo_labs/google/rank_overview/live": {
+      "post": {
+        "summary": "Rank Overview Google - Fascinante Digital",
+        "description": "📈 FASCINANTE DIGITAL - Análisis de ranking de dominios en Google. Obtiene posiciones promedio, distribución de rankings, competencia y métricas de visibilidad orgánica.",
+        "operationId": "fascinante_digital_rank_overview",
+        "tags": ["Rank Tracking"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "Dominio objetivo",
+                    "example": "example.com"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Número máximo de keywords a analizar"
+                  }
+                },
+                "required": ["target"],
+                "description": "Objeto con parámetros de análisis de ranking. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de ranking exitoso"
+          }
+        }
+      }
+    },
+    "/api/v3/dataforseo_labs/google/related_keywords/live": {
+      "post": {
+        "summary": "Keywords Relacionadas Google - Fascinante Digital",
+        "description": "🔗 FASCINANTE DIGITAL - Encuentra keywords relacionadas y semánticamente similares. Obtiene sugerencias de keywords, métricas de similitud y oportunidades de contenido.",
+        "operationId": "fascinante_digital_related_keywords",
+        "tags": ["Keyword Research"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "Palabra clave semilla",
+                    "example": "seo tools"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Número máximo de keywords relacionadas"
+                  }
+                },
+                "required": ["keyword"],
+                "description": "Objeto con parámetros de keywords relacionadas. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Keywords relacionadas exitosas"
+          }
+        }
+      }
+    },
+    "/api/v3/dataforseo_labs/google/competitors_domain/live": {
+      "post": {
+        "summary": "Competidores de Dominio - Fascinante Digital",
+        "description": "🏆 FASCINANTE DIGITAL - Identifica competidores directos basados en perfiles de backlinks y keywords. Obtiene análisis de competencia, superposición de keywords y métricas de autoridad.",
+        "operationId": "fascinante_digital_competitors_domain",
+        "tags": ["Competitor Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "target": {
+                    "type": "string",
+                    "description": "Dominio objetivo",
+                    "example": "example.com"
+                  },
+                  "location_name": {
+                    "type": "string",
+                    "description": "Nombre de la ubicación",
+                    "example": "United States"
+                  },
+                  "language_name": {
+                    "type": "string",
+                    "description": "Nombre del idioma",
+                    "example": "English"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 20,
+                    "description": "Número máximo de competidores"
+                  }
+                },
+                "required": ["target"],
+                "description": "Objeto con parámetros de análisis de competidores. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis de competidores exitoso"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "🏥 Endpoints del sistema y monitoreo - Fascinante Digital"
+    },
+    {
+      "name": "PageSpeed Analysis",
+      "description": "🚀 Análisis de rendimiento web con Google PageSpeed Insights - Fascinante Digital"
+    },
+    {
+      "name": "SERP Analysis",
+      "description": "🔍 Análisis de resultados de búsqueda (SERP) - Fascinante Digital"
+    },
+    {
+      "name": "Keyword Research",
+      "description": "💡 Investigación y análisis de keywords - Fascinante Digital"
+    },
+    {
+      "name": "Backlink Analysis",
+      "description": "🔗 Análisis de backlinks y autoridad de dominio - Fascinante Digital"
+    },
+    {
+      "name": "On-Page Analysis",
+      "description": "🔍 Análisis on-page y optimización SEO - Fascinante Digital"
+    },
+    {
+      "name": "Domain Analytics",
+      "description": "🛠️ Análisis de tecnologías y métricas de dominio - Fascinante Digital"
+    },
+    {
+      "name": "Business Data",
+      "description": "🏢 Datos de negocios y presencia local - Fascinante Digital"
+    },
+    {
+      "name": "App Data",
+      "description": "📱 Datos de aplicaciones móviles - Fascinante Digital"
+    },
+    {
+      "name": "Merchant Data",
+      "description": "🛒 Datos de comercio electrónico y productos - Fascinante Digital"
+    },
+    {
+      "name": "Rank Tracking",
+      "description": "📈 Seguimiento de rankings y posiciones - Fascinante Digital"
+    },
+    {
+      "name": "Competitor Analysis",
+      "description": "🏆 Análisis de competidores y mercado - Fascinante Digital"
+    }
+  ]
+}

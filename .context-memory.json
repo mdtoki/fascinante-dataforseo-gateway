@@ -1,0 +1,292 @@
+{
+  "memories": [
+    {
+      "id": "mem_1757257563760_lrxjpejvc",
+      "content": "Proyecto Fascinante Digital API Gateway con Next.js 15, Vercel, Cloudflare y Google Cloud",
+      "metadata": {
+        "type": "infrastructure",
+        "importance": "high",
+        "tags": [
+          "project",
+          "overview"
+        ],
+        "timestamp": "2025-09-07T15:06:03.760Z"
+      },
+      "tags": [
+        "project",
+        "overview"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257563761_i5syve492",
+      "content": "Google Cloud Platform configurado con proyecto fascinante-dataforseo-gateway y service account activo",
+      "metadata": {
+        "type": "gcp",
+        "importance": "high",
+        "tags": [
+          "google-cloud",
+          "credentials"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "google-cloud",
+        "credentials"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257563761_bs8t6qc4b",
+      "content": "Vercel deployado en sistema-4bo95edrr-alexanderoviedo.vercel.app con dominio auditoria.fascinantedigital.com",
+      "metadata": {
+        "type": "deployment",
+        "importance": "high",
+        "tags": [
+          "vercel",
+          "deployment"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "vercel",
+        "deployment"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257563761_ps6y1muus",
+      "content": "Cloudflare DNS configurado via Terraform con subdominios auditoria, api, analytics, tools",
+      "metadata": {
+        "type": "dns",
+        "importance": "high",
+        "tags": [
+          "cloudflare",
+          "dns",
+          "terraform"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "cloudflare",
+        "dns",
+        "terraform"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257563761_0dm8vvp6i",
+      "content": "DataForSEO API integrado con username alexanderoviedo@fascinantedigital.com y todos los endpoints funcionando",
+      "metadata": {
+        "type": "api",
+        "importance": "high",
+        "tags": [
+          "dataforseo",
+          "seo",
+          "api"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "dataforseo",
+        "seo",
+        "api"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257563761_nv4c0tkqr",
+      "content": "Google PageSpeed Insights API integrado con endpoints optimizados para ChatGPT",
+      "metadata": {
+        "type": "api",
+        "importance": "high",
+        "tags": [
+          "pagespeed",
+          "performance",
+          "api"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "pagespeed",
+        "performance",
+        "api"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257563761_uky46bz14",
+      "content": "GitHub Actions CI/CD configurado con workflow ci-cd-unified.yml para deploy automático",
+      "metadata": {
+        "type": "cicd",
+        "importance": "medium",
+        "tags": [
+          "github",
+          "ci-cd",
+          "automation"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "github",
+        "ci-cd",
+        "automation"
+      ],
+      "importance": "medium"
+    },
+    {
+      "id": "mem_1757257563761_plfe8d0dp",
+      "content": "Esquemas OpenAPI creados para ChatGPT GPTs: chatgpt-gpt-schema-minimalista.json recomendado",
+      "metadata": {
+        "type": "documentation",
+        "importance": "medium",
+        "tags": [
+          "openapi",
+          "chatgpt",
+          "documentation"
+        ],
+        "timestamp": "2025-09-07T15:06:03.761Z"
+      },
+      "tags": [
+        "openapi",
+        "chatgpt",
+        "documentation"
+      ],
+      "importance": "medium"
+    },
+    {
+      "id": "mem_1757257822298_rxgx476by",
+      "content": "Repositorio principal: alexanderovie/fascinante-dataforseo-gateway - API Gateway con DataForSEO y PageSpeed Insights",
+      "metadata": {
+        "type": "repository",
+        "timestamp": "2025-09-07T15:10:22.299Z"
+      },
+      "tags": [],
+      "importance": "medium"
+    },
+    {
+      "id": "mem_1757257833023_k1c6bqvdz",
+      "content": "Repositorio público: fascinante-digital - Fascinante Digital Platform con Next.js 15, TypeScript, App Router y Tailwind CSS",
+      "metadata": {
+        "type": "repository",
+        "timestamp": "2025-09-07T15:10:33.023Z"
+      },
+      "tags": [],
+      "importance": "medium"
+    },
+    {
+      "id": "mem_1757257838706_v88mzrt5o",
+      "content": "Repositorios privados: sistema, CleanandBrilliantPRO, arlenysoviedo, platform-fascinante, infra, apps, internalizacion, fascinante-digital-platform",
+      "metadata": {
+        "type": "repository",
+        "timestamp": "2025-09-07T15:10:38.706Z"
+      },
+      "tags": [],
+      "importance": "medium"
+    },
+    {
+      "id": "mem_1757257875445_n6n1mvbfv",
+      "content": "Repositorio público: fascinante-dataforseo-gateway - 🚀 DataForSEO API Gateway PRO ELITE - Next.js 15, TypeScript, Rate Limiting, Caching, Analytics. Ready for production deployment to auditoria.fascinantedigital.com. Lenguaje: [object Object]. URL: https://github.com/alexanderovie/fascinante-dataforseo-gateway",
+      "metadata": {
+        "type": "repository",
+        "importance": "high",
+        "tags": [
+          "github",
+          "repo",
+          "fascinante-dataforseo-gateway",
+          "público",
+          {
+            "name": "TypeScript"
+          }
+        ],
+        "timestamp": "2025-09-07T15:11:15.445Z"
+      },
+      "tags": [
+        "github",
+        "repo",
+        "fascinante-dataforseo-gateway",
+        "público",
+        {
+          "name": "TypeScript"
+        }
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257875446_cq68nfmzm",
+      "content": "Repositorio privado: sistema - Sin descripción. Lenguaje: Sin especificar. URL: https://github.com/alexanderovie/sistema",
+      "metadata": {
+        "type": "repository",
+        "importance": "high",
+        "tags": [
+          "github",
+          "repo",
+          "sistema",
+          "privado",
+          "Sin especificar"
+        ],
+        "timestamp": "2025-09-07T15:11:15.446Z"
+      },
+      "tags": [
+        "github",
+        "repo",
+        "sistema",
+        "privado",
+        "Sin especificar"
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257875447_qydrvy0lk",
+      "content": "Repositorio público: fascinante-digital - Fascinante Digital Platform - Next.js 15 with TypeScript, App Router and Tailwind CSS. Lenguaje: [object Object]. URL: https://github.com/alexanderovie/fascinante-digital",
+      "metadata": {
+        "type": "repository",
+        "importance": "high",
+        "tags": [
+          "github",
+          "repo",
+          "fascinante-digital",
+          "público",
+          {
+            "name": "TypeScript"
+          }
+        ],
+        "timestamp": "2025-09-07T15:11:15.447Z"
+      },
+      "tags": [
+        "github",
+        "repo",
+        "fascinante-digital",
+        "público",
+        {
+          "name": "TypeScript"
+        }
+      ],
+      "importance": "high"
+    },
+    {
+      "id": "mem_1757257875447_xxz77ra8l",
+      "content": "Resumen de repositorios: 18 total (4 públicos, 14 privados). Principales: fascinante-dataforseo-gateway (API Gateway), fascinante-digital (Platform), sistema (privado)",
+      "metadata": {
+        "type": "repository-summary",
+        "importance": "medium",
+        "tags": [
+          "github",
+          "repos",
+          "summary",
+          "overview"
+        ],
+        "timestamp": "2025-09-07T15:11:15.447Z"
+      },
+      "tags": [
+        "github",
+        "repos",
+        "summary",
+        "overview"
+      ],
+      "importance": "medium"
+    }
+  ],
+  "lastUpdate": "2025-09-07T15:11:15.447Z",
+  "version": "1.0.0"
+}

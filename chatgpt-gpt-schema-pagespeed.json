@@ -1,0 +1,337 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fascinante Digital - PageSpeed Insights API",
+    "description": "🚀 FASCINANTE DIGITAL - API Gateway para análisis de rendimiento web con Google PageSpeed Insights. Obtiene métricas detalladas de Core Web Vitals, rendimiento, accesibilidad, SEO y mejores prácticas.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://auditoria.fascinantedigital.com",
+      "description": "Fascinante Digital API Gateway - Producción"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API Key para autenticación. Obtén tu clave en el dashboard de Fascinante Digital."
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Código de error HTTP"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "description": "Datos de respuesta"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health Check - Fascinante Digital",
+        "description": "🏥 FASCINANTE DIGITAL - Verifica el estado del API Gateway y servicios conectados.",
+        "operationId": "fascinante_digital_health_check",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    },
+                    "services": {
+                      "type": "object",
+                      "properties": {
+                        "api": {
+                          "type": "string",
+                          "example": "running"
+                        },
+                        "cache": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "analytics": {
+                          "type": "string",
+                          "example": "active"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pagespeed": {
+      "post": {
+        "summary": "Análisis PageSpeed Insights - Fascinante Digital",
+        "description": "🚀 FASCINANTE DIGITAL - Análisis completo de rendimiento web con Google PageSpeed Insights. Obtiene métricas de Core Web Vitals, rendimiento, accesibilidad, SEO y mejores prácticas para cualquier URL.",
+        "operationId": "fascinante_digital_pagespeed_insights",
+        "tags": ["PageSpeed Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.google.com"
+                  },
+                  "strategy": {
+                    "type": "string",
+                    "enum": ["desktop", "mobile"],
+                    "default": "desktop",
+                    "description": "Estrategia de análisis: desktop o mobile"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["performance", "accessibility", "best-practices", "seo", "pwa"],
+                    "default": "performance",
+                    "description": "Categoría de análisis: performance, accessibility, best-practices, seo, o pwa"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL y parámetros de análisis de PageSpeed Insights."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis PageSpeed exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "lighthouseResult": {
+                      "type": "object",
+                      "properties": {
+                        "requestedUrl": {
+                          "type": "string",
+                          "description": "URL solicitada"
+                        },
+                        "finalUrl": {
+                          "type": "string",
+                          "description": "URL final después de redirecciones"
+                        },
+                        "categories": {
+                          "type": "object",
+                          "properties": {
+                            "performance": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number",
+                                  "description": "Puntuación de rendimiento (0-1)"
+                                },
+                                "title": {
+                                  "type": "string",
+                                  "description": "Título de la categoría"
+                                }
+                              }
+                            },
+                            "accessibility": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number",
+                                  "description": "Puntuación de accesibilidad (0-1)"
+                                }
+                              }
+                            },
+                            "best-practices": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number",
+                                  "description": "Puntuación de mejores prácticas (0-1)"
+                                }
+                              }
+                            },
+                            "seo": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number",
+                                  "description": "Puntuación de SEO (0-1)"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "audits": {
+                          "type": "object",
+                          "description": "Auditorías detalladas de Lighthouse"
+                        },
+                        "configSettings": {
+                          "type": "object",
+                          "properties": {
+                            "emulatedFormFactor": {
+                              "type": "string",
+                              "description": "Factor de forma emulado (desktop/mobile)"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "loadingExperience": {
+                      "type": "object",
+                      "properties": {
+                        "metrics": {
+                          "type": "object",
+                          "properties": {
+                            "FIRST_CONTENTFUL_PAINT_MS": {
+                              "type": "object",
+                              "properties": {
+                                "category": {
+                                  "type": "string",
+                                  "description": "Categoría de rendimiento"
+                                },
+                                "percentile": {
+                                  "type": "number",
+                                  "description": "Percentil de la métrica"
+                                }
+                              }
+                            },
+                            "LARGEST_CONTENTFUL_PAINT_MS": {
+                              "type": "object",
+                              "properties": {
+                                "category": {
+                                  "type": "string"
+                                },
+                                "percentile": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "CUMULATIVE_LAYOUT_SHIFT_SCORE": {
+                              "type": "object",
+                              "properties": {
+                                "category": {
+                                  "type": "string"
+                                },
+                                "percentile": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "originLoadingExperience": {
+                      "type": "object",
+                      "description": "Experiencia de carga del origen"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Análisis PageSpeed Insights (GET) - Fascinante Digital",
+        "description": "🚀 FASCINANTE DIGITAL - Análisis de rendimiento web con Google PageSpeed Insights usando parámetros GET.",
+        "operationId": "fascinante_digital_pagespeed_insights_get",
+        "tags": ["PageSpeed Analysis"],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL completa de la página web a analizar"
+          },
+          {
+            "name": "strategy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["desktop", "mobile"],
+              "default": "desktop"
+            },
+            "description": "Estrategia de análisis: desktop o mobile"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["performance", "accessibility", "best-practices", "seo", "pwa"],
+              "default": "performance"
+            },
+            "description": "Categoría de análisis"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Análisis PageSpeed exitoso"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "🏥 Endpoints del sistema y monitoreo - Fascinante Digital"
+    },
+    {
+      "name": "PageSpeed Analysis",
+      "description": "🚀 Análisis de rendimiento web con Google PageSpeed Insights - Fascinante Digital"
+    }
+  ]
+}

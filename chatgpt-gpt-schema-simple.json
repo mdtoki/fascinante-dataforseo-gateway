@@ -1,0 +1,369 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Fascinante Digital - On-Page Analysis API",
+    "description": "🔍 FASCINANTE DIGITAL - API Gateway para análisis on-page de sitios web. Obtiene datos detallados sobre optimización SEO, rendimiento, y estructura de páginas web.",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://auditoria.fascinantedigital.com",
+      "description": "Fascinante Digital API Gateway - Producción"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API Key para autenticación. Obtén tu clave en el dashboard de Fascinante Digital."
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Código de error HTTP"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de la respuesta"
+          },
+          "data": {
+            "type": "object",
+            "description": "Datos de respuesta"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health Check - Fascinante Digital",
+        "description": "🏥 FASCINANTE DIGITAL - Verifica el estado del API Gateway y servicios conectados.",
+        "operationId": "fascinante_digital_health_check",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    },
+                    "services": {
+                      "type": "object",
+                      "properties": {
+                        "api": {
+                          "type": "string",
+                          "example": "running"
+                        },
+                        "cache": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "analytics": {
+                          "type": "string",
+                          "example": "active"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/on_page/instant_pages": {
+      "post": {
+        "summary": "Análisis On-Page Instantáneo - Fascinante Digital",
+        "description": "🔍 FASCINANTE DIGITAL - Análisis instantáneo de páginas web para SEO. Obtiene datos detallados sobre optimización, rendimiento, estructura HTML, y métricas de SEO de cualquier URL.",
+        "operationId": "fascinante_digital_on_page_instant_pages",
+        "tags": ["On-Page Analysis"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL completa de la página web a analizar",
+                    "example": "https://www.google.com"
+                  },
+                  "enable_javascript": {
+                    "type": "boolean",
+                    "description": "Habilitar renderizado JavaScript para análisis completo",
+                    "default": true
+                  },
+                  "custom_user_agent": {
+                    "type": "string",
+                    "description": "User-Agent personalizado para el análisis"
+                  }
+                },
+                "required": ["url"],
+                "description": "Objeto con la URL a analizar. El sistema automáticamente lo convertirá al formato de array que requiere DataForSEO."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Análisis on-page exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string",
+                      "description": "Versión de la API"
+                    },
+                    "status_code": {
+                      "type": "integer",
+                      "description": "Código de estado de la respuesta"
+                    },
+                    "status_message": {
+                      "type": "string",
+                      "description": "Mensaje de estado"
+                    },
+                    "time": {
+                      "type": "string",
+                      "description": "Tiempo de procesamiento"
+                    },
+                    "cost": {
+                      "type": "number",
+                      "description": "Costo de la consulta"
+                    },
+                    "tasks_count": {
+                      "type": "integer",
+                      "description": "Número de tareas procesadas"
+                    },
+                    "tasks_error": {
+                      "type": "integer",
+                      "description": "Número de tareas con error"
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "ID único de la tarea"
+                          },
+                          "status_code": {
+                            "type": "integer",
+                            "description": "Código de estado de la tarea"
+                          },
+                          "status_message": {
+                            "type": "string",
+                            "description": "Mensaje de estado de la tarea"
+                          },
+                          "time": {
+                            "type": "string",
+                            "description": "Tiempo de procesamiento de la tarea"
+                          },
+                          "cost": {
+                            "type": "number",
+                            "description": "Costo de la tarea"
+                          },
+                          "result_count": {
+                            "type": "integer",
+                            "description": "Número de resultados"
+                          },
+                          "result": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "crawl_progress": {
+                                  "type": "string",
+                                  "description": "Estado del crawling"
+                                },
+                                "items_count": {
+                                  "type": "integer",
+                                  "description": "Número de elementos analizados"
+                                },
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string",
+                                        "description": "URL analizada"
+                                      },
+                                      "status_code": {
+                                        "type": "integer",
+                                        "description": "Código de estado HTTP"
+                                      },
+                                      "meta": {
+                                        "type": "object",
+                                        "properties": {
+                                          "title": {
+                                            "type": "string",
+                                            "description": "Título de la página"
+                                          },
+                                          "description": {
+                                            "type": "string",
+                                            "description": "Meta descripción"
+                                          },
+                                          "internal_links_count": {
+                                            "type": "integer",
+                                            "description": "Número de enlaces internos"
+                                          },
+                                          "external_links_count": {
+                                            "type": "integer",
+                                            "description": "Número de enlaces externos"
+                                          },
+                                          "images_count": {
+                                            "type": "integer",
+                                            "description": "Número de imágenes"
+                                          },
+                                          "scripts_count": {
+                                            "type": "integer",
+                                            "description": "Número de scripts"
+                                          },
+                                          "title_length": {
+                                            "type": "integer",
+                                            "description": "Longitud del título"
+                                          },
+                                          "description_length": {
+                                            "type": "integer",
+                                            "description": "Longitud de la descripción"
+                                          }
+                                        }
+                                      },
+                                      "page_timing": {
+                                        "type": "object",
+                                        "properties": {
+                                          "time_to_interactive": {
+                                            "type": "integer",
+                                            "description": "Tiempo hasta interactividad"
+                                          },
+                                          "dom_complete": {
+                                            "type": "integer",
+                                            "description": "Tiempo de DOM completo"
+                                          },
+                                          "largest_contentful_paint": {
+                                            "type": "integer",
+                                            "description": "Largest Contentful Paint"
+                                          },
+                                          "first_input_delay": {
+                                            "type": "integer",
+                                            "description": "First Input Delay"
+                                          },
+                                          "duration_time": {
+                                            "type": "integer",
+                                            "description": "Tiempo total de carga"
+                                          }
+                                        }
+                                      },
+                                      "onpage_score": {
+                                        "type": "number",
+                                        "description": "Puntuación SEO on-page (0-100)"
+                                      },
+                                      "total_dom_size": {
+                                        "type": "integer",
+                                        "description": "Tamaño total del DOM"
+                                      },
+                                      "size": {
+                                        "type": "integer",
+                                        "description": "Tamaño de la página en bytes"
+                                      },
+                                      "checks": {
+                                        "type": "object",
+                                        "properties": {
+                                          "is_https": {
+                                            "type": "boolean",
+                                            "description": "Usa HTTPS"
+                                          },
+                                          "no_title": {
+                                            "type": "boolean",
+                                            "description": "No tiene título"
+                                          },
+                                          "no_description": {
+                                            "type": "boolean",
+                                            "description": "No tiene descripción"
+                                          },
+                                          "no_favicon": {
+                                            "type": "boolean",
+                                            "description": "No tiene favicon"
+                                          },
+                                          "seo_friendly_url": {
+                                            "type": "boolean",
+                                            "description": "URL amigable para SEO"
+                                          },
+                                          "has_render_blocking_resources": {
+                                            "type": "boolean",
+                                            "description": "Tiene recursos que bloquean el renderizado"
+                                          },
+                                          "deprecated_html_tags": {
+                                            "type": "boolean",
+                                            "description": "Usa etiquetas HTML obsoletas"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "🏥 Endpoints del sistema y monitoreo - Fascinante Digital"
+    },
+    {
+      "name": "On-Page Analysis",
+      "description": "🔍 Análisis on-page y optimización SEO - Fascinante Digital"
+    }
+  ]
+}
