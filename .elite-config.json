@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "project": "fascinante-dataforseo-gateway",
+  "domain": "auditoria.fascinantedigital.com",
+  "github": {
+    "username": "alexanderovie",
+    "organization": "fascinante-digital"
+  },
+  "cloudflare": {
+    "zoneId": "6d7328e7f3edb975ef1f52cdb29178b7",
+    "domain": "fascinantedigital.com"
+  },
+  "vercel": {
+    "team": "fascinante-digital"
+  },
+  "gcp": {
+    "project": "fascinante-digit-1698295291643",
+    "serviceAccount": "fascinante-prod-api-service@fascinante-digit-1698295291643.iam.gserviceaccount.com"
+  },
+  "apis": {
+    "dataforseo": {
+      "username": "alexanderoviedo@fascinantedigital.com",
+      "baseUrl": "https://api.dataforseo.com"
+    },
+    "pagespeed": {
+      "apiKey": "AIzaSyDgVdbR_BN3lyBoSm51lmduVkzuD0z4JKU"
+    }
+  },
+  "endpoints": {
+    "working": [
+      "/api/health",
+      "/api/v1/pagespeed/summary",
+      "/api/v1/pagespeed/core-web-vitals",
+      "/api/v3/on_page/instant_pages",
+      "/api/v3/serp/google/organic/live/advanced",
+      "/api/v3/domain_analytics/technologies/domain_technologies/live"
+    ]
+  }
+}
