@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     const cacheKey = cacheService.generateCacheKey(endpoint, { 
       action, searchTerms, adReachedCountries, adActiveStatus, adType, publisherPlatform, mediaType, limit 
     });
-    const cachedResponse = await cacheService.getCachedResponse(cacheKey);
+    const cachedResponse = await cacheService.get(cacheKey);
 
     if (cachedResponse) {
       logger.info(`Cache hit for Meta Ad Library: ${action}`);
@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid action. Use: search, ad_details, page_ads, topics, regions' }, { status: 400 });
     }
 
-    await cacheService.cacheResponse(cacheKey, result, 3600); // 1 hour cache
+    await cacheService.set(cacheKey, result, 3600); // 1 hour cache
 
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({

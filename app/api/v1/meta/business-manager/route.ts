@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     }
 
     const cacheKey = cacheService.generateCacheKey(endpoint, { action, businessId });
-    const cachedResponse = await cacheService.getCachedResponse(cacheKey);
+    const cachedResponse = await cacheService.get(cacheKey);
 
     if (cachedResponse) {
       logger.info(`Cache hit for Meta Business Manager: ${action}`);
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid action. Use: info, adaccounts, pages, instagram, users, system_users' }, { status: 400 });
     }
 
-    await cacheService.cacheResponse(cacheKey, result, 1800); // 30 minutes cache
+    await cacheService.set(cacheKey, result, 1800); // 30 minutes cache
 
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({
