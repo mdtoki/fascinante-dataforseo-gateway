@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': process.env.GATEWAY_INTERNAL_KEY
+        'X-API-Key': process.env.GATEWAY_INTERNAL_KEY || ''
       },
       body: JSON.stringify(validated)
     });
