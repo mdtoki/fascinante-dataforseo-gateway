@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Cache successful response for 1 hour
-    await cacheService.cacheResponse(cacheKey, data, 3600);
+    await cacheService.set(cacheKey, data, 3600);
 
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({
@@ -186,7 +186,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Cache successful response for 30 minutes
-    await cacheService.cacheResponse(cacheKey, data, 1800);
+    await cacheService.set(cacheKey, data, 1800);
 
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({

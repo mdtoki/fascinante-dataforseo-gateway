@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid action. Use: accounts, locations, profile, insights' }, { status: 400 });
     }
 
-    await cacheService.cacheResponse(cacheKey, result, 1800); // 30 minutes cache
+    await cacheService.set(cacheKey, result, 1800); // 30 minutes cache
 
     const responseTime = Date.now() - startTime;
     analyticsService.trackRequest({
