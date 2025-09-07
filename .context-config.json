@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "name": "Fascinante Digital API Gateway Context System",
+  "description": "Sistema de memoria persistente para contexto de infraestructura",
+  "config": {
+    "memory": {
+      "file": ".context-memory.json",
+      "autoUpdate": true,
+      "updateInterval": 6,
+      "cleanupDays": 30
+    },
+    "context": {
+      "file": "infrastructure-context.md",
+      "autoUpdate": true,
+      "validateOnLoad": true
+    },
+    "export": {
+      "file": ".ai-context.json",
+      "format": "json",
+      "includeMetadata": true
+    }
+  },
+  "infrastructure": {
+    "project": {
+      "name": "Fascinante Digital API Gateway",
+      "domain": "auditoria.fascinantedigital.com",
+      "architecture": "Next.js 15 + Vercel + Cloudflare + Google Cloud"
+    },
+    "services": {
+      "gcp": {
+        "projectId": "fascinante-dataforseo-gateway",
+        "serviceAccount": "fascinante-dataforseo-sa@fascinante-dataforseo-gateway.iam.gserviceaccount.com",
+        "region": "us-central1",
+        "apis": ["PageSpeed Insights", "Cloud APIs"]
+      },
+      "vercel": {
+        "project": "sistema",
+        "url": "https://sistema-4bo95edrr-alexanderoviedo.vercel.app",
+        "domain": "auditoria.fascinantedigital.com"
+      },
+      "cloudflare": {
+        "zone": "fascinantedigital.com",
+        "zoneId": "6d7328e7f3edb975ef1f52cdb29178b7",
+        "subdomains": {
+          "auditoria": "sistema-4bo95edrr-alexanderoviedo.vercel.app",
+          "api": "fascinantedigital.com",
+          "analytics": "fascinantedigital.com",
+          "tools": "fascinantedigital.com"
+        }
+      },
+      "github": {
+        "repo": "alexanderovie/fascinante-dataforseo-gateway",
+        "url": "https://github.com/alexanderovie/fascinante-dataforseo-gateway"
+      },
+      "dataforseo": {
+        "username": "alexanderoviedo@fascinantedigital.com",
+        "status": "active"
+      }
+    }
+  },
+  "endpoints": {
+    "health": {
+      "path": "/api/health",
+      "method": "GET",
+      "status": "active"
+    },
+    "pagespeed": {
+      "summary": {
+        "path": "/api/v1/pagespeed/summary",
+        "method": "POST",
+        "status": "active",
+        "optimized": true
+      },
+      "coreWebVitals": {
+        "path": "/api/v1/pagespeed/core-web-vitals",
+        "method": "POST",
+        "status": "active",
+        "optimized": true
+      }
+    },
+    "dataforseo": {
+      "onPage": {
+        "path": "/api/v3/on_page/instant_pages",
+        "method": "POST",
+        "status": "active"
+      },
+      "serp": {
+        "path": "/api/v3/serp/google/organic/live/advanced",
+        "method": "POST",
+        "status": "active"
+      },
+      "technologies": {
+        "path": "/api/v3/domain_analytics/technologies/domain_technologies/live",
+        "method": "POST",
+        "status": "active"
+      }
+    }
+  },
+  "commands": {
+    "deploy": {
+      "vercel": "vercel --prod --yes",
+      "dns": "cd terraform && terraform apply -auto-approve"
+    },
+    "development": {
+      "install": "pnpm install",
+      "dev": "pnpm dev",
+      "lint": "pnpm lint",
+      "format": "pnpm format"
+    },
+    "testing": {
+      "health": "curl -X POST https://auditoria.fascinantedigital.com/api/health",
+      "pagespeed": "curl -X POST https://auditoria.fascinantedigital.com/api/v1/pagespeed/summary -H 'Content-Type: application/json' -H 'X-API-Key: $API_GATEWAY_SECRET' -d '{\"url\": \"https://www.fascinantedigital.com\", \"strategy\": \"desktop\"}'"
+    },
+    "context": {
+      "update": "node scripts/update-context.js update",
+      "validate": "node scripts/update-context.js validate",
+      "memory": "node scripts/context-memory.js context",
+      "summary": "node scripts/ai-context-loader.js summary"
+    }
+  },
+  "status": {
+    "infrastructure": "active",
+    "apis": "configured",
+    "deployment": "production",
+    "monitoring": "active",
+    "lastUpdate": "2024-12-19T00:00:00.000Z"
+  }
+}
