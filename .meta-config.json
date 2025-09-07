@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "project": "fascinante-dataforseo-gateway",
+  "meta": {
+    "appId": "META_APP_ID",
+    "appSecret": "META_APP_SECRET",
+    "accessToken": "META_ACCESS_TOKEN",
+    "businessId": "META_BUSINESS_ID",
+    "adAccountId": "META_AD_ACCOUNT_ID",
+    "pageId": "META_PAGE_ID",
+    "instagramAccountId": "META_INSTAGRAM_ACCOUNT_ID"
+  },
+  "apis": {
+    "business_manager": {
+      "baseUrl": "https://graph.facebook.com/v18.0",
+      "endpoints": {
+        "business_info": "/{business_id}",
+        "ad_accounts": "/{business_id}/adaccounts",
+        "pages": "/me/accounts",
+        "instagram": "/{instagram_account_id}",
+        "users": "/{business_id}/users",
+        "system_users": "/{business_id}/system_users"
+      }
+    },
+    "marketing_api": {
+      "baseUrl": "https://graph.facebook.com/v18.0",
+      "endpoints": {
+        "campaigns": "/{ad_account_id}/campaigns",
+        "adsets": "/{ad_account_id}/adsets",
+        "ads": "/{ad_account_id}/ads",
+        "insights": "/{id}/insights",
+        "audiences": "/{ad_account_id}/customaudiences",
+        "creative_assets": "/{ad_account_id}/adimages"
+      }
+    },
+    "ad_library": {
+      "baseUrl": "https://graph.facebook.com/v18.0",
+      "endpoints": {
+        "search": "/ads_archive",
+        "ad_details": "/ads_archive",
+        "page_ads": "/ads_archive",
+        "topics": "/ads_archive_topics",
+        "regions": "/ads_archive_regions"
+      }
+    }
+  },
+  "features": {
+    "business_manager": {
+      "enabled": true,
+      "description": "Gestión de Business Manager, usuarios, cuentas publicitarias"
+    },
+    "marketing_api": {
+      "enabled": true,
+      "description": "Campañas, anuncios, audiencias, métricas"
+    },
+    "ad_library": {
+      "enabled": true,
+      "description": "Búsqueda de anuncios, análisis de competencia"
+    },
+    "instagram_api": {
+      "enabled": true,
+      "description": "Gestión de cuentas de Instagram Business"
+    }
+  },
+  "authentication": {
+    "type": "access_token",
+    "required_permissions": [
+      "ads_management",
+      "business_management",
+      "pages_read_engagement",
+      "instagram_basic",
+      "instagram_manage_insights"
+    ],
+    "token_types": [
+      "user_access_token",
+      "page_access_token",
+      "system_user_access_token"
+    ]
+  },
+  "rate_limits": {
+    "business_manager": {
+      "requests_per_hour": 200,
+      "requests_per_day": 4800
+    },
+    "marketing_api": {
+      "requests_per_hour": 200,
+      "requests_per_day": 4800
+    },
+    "ad_library": {
+      "requests_per_hour": 200,
+      "requests_per_day": 4800
+    }
+  },
+  "cache_settings": {
+    "business_manager": 1800,
+    "marketing_api": 900,
+    "ad_library": 3600
+  }
+}

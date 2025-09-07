@@ -33,7 +33,21 @@
       "/api/v1/pagespeed/core-web-vitals",
       "/api/v3/on_page/instant_pages",
       "/api/v3/serp/google/organic/live/advanced",
-      "/api/v3/domain_analytics/technologies/domain_technologies/live"
+      "/api/v3/domain_analytics/technologies/domain_technologies/live",
+      "/api/v1/google-my-business",
+      "/api/v3/business_data/google/my_business_info",
+      "/api/v1/meta/business-manager",
+      "/api/v1/meta/marketing-api",
+      "/api/v1/meta/ad-library"
     ]
+  },
+  "meta": {
+    "appId": "META_APP_ID",
+    "appSecret": "META_APP_SECRET",
+    "accessToken": "META_ACCESS_TOKEN",
+    "businessId": "META_BUSINESS_ID",
+    "adAccountId": "META_AD_ACCOUNT_ID",
+    "pageId": "META_PAGE_ID",
+    "instagramAccountId": "META_INSTAGRAM_ACCOUNT_ID"
   }
 }
