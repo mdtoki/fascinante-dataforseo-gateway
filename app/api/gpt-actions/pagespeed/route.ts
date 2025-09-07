@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
     
-    if (error.message.includes('authorization') || error.message.includes('token')) {
+    if (error instanceof Error && (error.message.includes('authorization') || error.message.includes('token'))) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
