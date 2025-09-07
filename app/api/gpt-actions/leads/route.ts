@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       user_email: auth.email,
       user_name: auth.name,
       auth_mode: auth.mode,
-      ip_hash: hashIP(req.ip || 'unknown'),
+      ip_hash: hashIP(req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'),
       user_agent: req.headers.get('user-agent') || 'unknown'
     });
     
