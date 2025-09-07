@@ -38,9 +38,26 @@ export const leadResponseSchema = z.object({
 export const pagespeedResponseSchema = z.object({
   performance_score: z.number().min(0).max(100),
   core_web_vitals: z.object({
-    lcp: z.number().positive(),
-    fcp: z.number().positive(),
-    cls: z.number().min(0)
+    lcp: z.object({
+      value: z.string(),
+      score: z.number().min(0).max(1),
+      status: z.string()
+    }),
+    fcp: z.object({
+      value: z.string(),
+      score: z.number().min(0).max(1),
+      status: z.string()
+    }),
+    cls: z.object({
+      value: z.string(),
+      score: z.number().min(0).max(1),
+      status: z.string()
+    }),
+    fid: z.object({
+      value: z.string(),
+      score: z.number().min(0).max(1),
+      status: z.string()
+    }).optional()
   })
 });
 
