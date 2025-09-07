@@ -94,7 +94,7 @@ class ContextMemory {
       const queryLower = query.toLowerCase();
       
       return content.includes(queryLower) || 
-             memory.tags.some(tag => tag.toLowerCase().includes(queryLower));
+             memory.tags.some(tag => String(tag).toLowerCase().includes(queryLower));
     });
 
     // Ordenar por importancia y timestamp

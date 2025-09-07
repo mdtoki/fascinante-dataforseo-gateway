@@ -44,7 +44,12 @@ class AIContextLoader {
       githubRepo: 'https://github.com/alexanderovie/fascinante-dataforseo-gateway',
       cloudflareZone: '6d7328e7f3edb975ef1f52cdb29178b7',
       gcpProject: 'fascinante-dataforseo-gateway',
-      dataforseoUser: 'alexanderoviedo@fascinantedigital.com'
+      dataforseoUser: 'alexanderoviedo@fascinantedigital.com',
+      repositories: {
+        main: 'fascinante-dataforseo-gateway',
+        public: ['fascinante-dataforseo-gateway', 'fascinante-digital'],
+        private: ['sistema', 'CleanandBrilliantPRO', 'arlenysoviedo', 'platform-fascinante', 'infra', 'apps', 'internalizacion', 'fascinante-digital-platform']
+      }
     };
   }
 
@@ -115,6 +120,11 @@ class AIContextLoader {
 - **Cloudflare:** fascinantedigital.com (DNS CONFIGURADO)
 - **GitHub:** alexanderovie/fascinante-dataforseo-gateway (CI/CD ACTIVO)
 
+## 📁 REPOSITORIOS DISPONIBLES
+- **Principal:** fascinante-dataforseo-gateway (Público) - API Gateway actual
+- **Públicos:** fascinante-digital (Platform)
+- **Privados:** sistema, CleanandBrilliantPRO, arlenysoviedo, platform-fascinante, infra, apps, internalizacion, fascinante-digital-platform
+
 ## 🚀 ENDPOINTS FUNCIONANDO
 - /api/health - Health check
 - /api/v1/pagespeed/summary - PageSpeed optimizado para ChatGPT
@@ -127,6 +137,8 @@ class AIContextLoader {
 - Deploy: vercel --prod --yes
 - DNS: cd terraform && terraform apply -auto-approve
 - Test: curl -X POST https://auditoria.fascinantedigital.com/api/health
+- Repos: gh repo list
+- Ver repo: gh repo view fascinante-dataforseo-gateway
 
 ## 📊 ESTADO ACTUAL
 - ✅ API Gateway funcionando
@@ -134,6 +146,7 @@ class AIContextLoader {
 - ✅ DNS configurado correctamente
 - ✅ CI/CD automatizado
 - ✅ Esquemas OpenAPI para ChatGPT
+- ✅ 10 repositorios disponibles (2 públicos, 8 privados)
 
 **⚠️ IMPORTANTE:** Siempre consulta este contexto antes de crear nuevas APIs o hacer cambios en la infraestructura.
 `;
