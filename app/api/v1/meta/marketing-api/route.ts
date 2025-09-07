@@ -51,37 +51,37 @@ export async function GET(request: NextRequest) {
         if (!adAccountId) {
           return NextResponse.json({ error: 'ad_account_id is required for campaigns action' }, { status: 400 });
         }
-        result = await getCampaigns(adAccountId);
+        result = await getCampaigns(adAccountId || '');
         break;
       case 'adsets':
         if (!adAccountId) {
           return NextResponse.json({ error: 'ad_account_id is required for adsets action' }, { status: 400 });
         }
-        result = await getAdSets(adAccountId);
+        result = await getAdSets(adAccountId || '');
         break;
       case 'ads':
         if (!adAccountId) {
           return NextResponse.json({ error: 'ad_account_id is required for ads action' }, { status: 400 });
         }
-        result = await getAds(adAccountId);
+        result = await getAds(adAccountId || '');
         break;
       case 'insights':
         if (!campaignId && !adSetId && !adId) {
           return NextResponse.json({ error: 'campaign_id, adset_id, or ad_id is required for insights action' }, { status: 400 });
         }
-        result = await getInsights(campaignId, adSetId, adId);
+        result = await getInsights(campaignId || undefined, adSetId || undefined, adId || undefined);
         break;
       case 'audiences':
         if (!adAccountId) {
           return NextResponse.json({ error: 'ad_account_id is required for audiences action' }, { status: 400 });
         }
-        result = await getAudiences(adAccountId);
+        result = await getAudiences(adAccountId || '');
         break;
       case 'creative_assets':
         if (!adAccountId) {
           return NextResponse.json({ error: 'ad_account_id is required for creative_assets action' }, { status: 400 });
         }
-        result = await getCreativeAssets(adAccountId);
+        result = await getCreativeAssets(adAccountId || '');
         break;
       default:
         return NextResponse.json({ error: 'Invalid action. Use: campaigns, adsets, ads, insights, audiences, creative_assets' }, { status: 400 });

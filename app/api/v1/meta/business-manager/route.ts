@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   const startTime = Date.now();
   const { searchParams } = new URL(request.url);
   const action = searchParams.get('action') || 'info';
-  const businessId = searchParams.get('business_id') || META_BUSINESS_ID;
+  const businessId = searchParams.get('business_id') || META_BUSINESS_ID || 'me';
 
   const endpoint = `/api/v1/meta/business-manager`;
 
